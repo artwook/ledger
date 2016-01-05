@@ -22,6 +22,8 @@
 
 #define HARDFORK_357_TIME (fc::time_point_sec( 1444416300 ))
 #define HARDFORK_359_TIME (fc::time_point_sec( 1444416300 ))
+#define HARDFORK_385_TIME (fc::time_point_sec( 1445558400 )) // October 23 enforce PARENT.CHILD and allow short names
+#define HARDFORK_393_TIME (fc::time_point_sec( 2445558400 )) // Refund order creation fee on cancel
 #define HARDFORK_409_TIME (fc::time_point_sec( 1446652800 ))
 #define HARDFORK_413_TIME (fc::time_point_sec( 1446652800 ))
 #define HARDFORK_415_TIME (fc::time_point_sec( 1446652800 ))
@@ -36,3 +38,9 @@
 
 // #453 Hardfork to retroactively correct referral percentages
 #define HARDFORK_453_TIME (fc::time_point_sec( 1450288800 ))
+
+// #480 Fix non-CORE MIA core_exchange_rate check
+#define HARDFORK_480_TIME (fc::time_point_sec( 1450378800 ))
+
+// #483 Operation history numbering change
+#define HARDFORK_483_TIME (fc::time_point_sec( 1450378800 ))

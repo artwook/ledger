@@ -49,6 +49,9 @@ void_result asset_create_evaluator::do_evaluate( const asset_create_operation& o
    auto asset_symbol_itr = asset_indx.find( op.symbol );
    FC_ASSERT( asset_symbol_itr == asset_indx.end() );
 
+   if( d.head_block_time() > HARDFORK_385_TIME )
+   {
+
    if( d.head_block_time() <= HARDFORK_409_TIME )
    {
       auto dotpos = op.symbol.find( '.' );
@@ -74,6 +77,14 @@ void_result asset_create_evaluator::do_evaluate( const asset_create_operation& o
          FC_ASSERT( asset_symbol_itr->issuer == op.issuer, "Asset ${s} may only be created by issuer of ${p}, ${i}",
                     ("s",op.symbol)("p",prefix)("i", op.issuer(d).name) );
       }
+   }
+
+   }
+   else
+   {
+      auto dotpos = op.symbol.find( '.' );
+      if( dotpos != std::string::npos )
+          wlog( "Asset ${s} has a name which requires hardfork 385", ("s",op.symbol) );
    }
 
    core_fee_paid -= core_fee_paid.value/2;
@@ -491,6 +502,20 @@ void_result asset_publish_feeds_evaluator::do_evaluate(const asset_publish_feed_
    FC_ASSERT( !bitasset.has_settlement(), "No further feeds may be published after a settlement event" );
 
    FC_ASSERT( o.feed.settlement_price.quote.asset_id == bitasset.options.short_backing_asset );
+   if( d.head_block_time() > HARDFORK_480_TIME )
+   {
+      if( !o.feed.core_exchange_rate.is_null() )
+      {
+         FC_ASSERT( o.feed.core_exchange_rate.quote.asset_id == asset_id_type() );
+      }
+   }
+   else
+   {
+      if( (!o.feed.settlement_price.is_null()) && (!o.feed.core_exchange_rate.is_null()) )
+      {
+         FC_ASSERT( o.feed.settlement_price.quote.asset_id == o.feed.core_exchange_rate.quote.asset_id );
+      }
+   }
 
    //Verify that the publisher is authoritative to publish a feed
    if( base.options.flags & witness_fed_asset )

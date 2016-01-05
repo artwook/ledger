@@ -176,8 +176,8 @@ void database::clear_expired_proposals()
             continue;
          }
       } catch( const fc::exception& e ) {
-         elog("Failed to apply proposed transaction on its expiration. Deleting it.\n${proposal}\n${error}",
-              ("proposal", proposal)("error", e.to_detail_string()));
+        // elog("Failed to apply proposed transaction on its expiration. Deleting it.\n${proposal}\n${error}",
+        //      ("proposal", proposal)("error", e.to_detail_string()));
       }
       remove(proposal);
    }
@@ -348,6 +348,12 @@ void database::clear_expired_orders()
             assert(itr != call_index.end() && itr->debt_type() == mia_object.get_id());
             asset max_settlement = max_settlement_volume - settled;
 
+            if( order.balance.amount == 0 )
+            {
+               wlog( "0 settlement detected" );
+               cancel_order( order );
+               break;
+            }
             try {
                settled += match(*itr, order, settlement_price, max_settlement);
             } 
