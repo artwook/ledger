@@ -95,6 +95,19 @@ namespace detail {
       }
 
       initial_state.initial_accounts.emplace_back("nathan", nathan_key.get_public_key());
+    
+      genesis_state_type::initial_asset_type cny;
+      
+      cny.symbol = "CNY";
+      cny.issuer_name = "fed-bank";
+      cny.description = "Federal Central Bank Issued CNY";
+      cny.precision = 4;
+      cny.max_supply = int64_t(200000000000ll);
+      cny.accumulated_fees = 0;
+      cny.is_bitasset = false;
+       
+      initial_state.initial_assets.push_back( cny );
+       
       initial_state.initial_balances.push_back({nathan_key.get_public_key(),
                                                 GRAPHENE_SYMBOL,
                                                 GRAPHENE_MAX_SHARE_SUPPLY});

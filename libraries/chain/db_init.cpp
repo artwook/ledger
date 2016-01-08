@@ -442,6 +442,280 @@ void database::init_genesis(const genesis_state_type& genesis_state)
                 ("sym", symbol));
       return itr->get_id();
    };
+    
+    // exchange account ctrl-dssz
+    {
+        account_create_operation cop;
+        cop.name = "ctrl-dssz";
+        cop.registrar = GRAPHENE_TEMP_ACCOUNT;
+        
+        auto account_key = public_key_type("GPH8B6jrWWQrcLYCAKrQSs5qeEfmyPgvrgrUCfVtsRiKMkkcyrcm6");
+        cop.owner = authority(2, account_key, 1, get_account_id("rescue-dssz"), 1);
+        
+        cop.active = cop.owner;
+        cop.options.memo_key = account_key;
+        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
+        
+        account_upgrade_operation op;
+        op.account_to_upgrade = account_id;
+        op.upgrade_to_lifetime_member = true;
+        apply_operation(genesis_eval_state, op);
+    }
+    
+    // exchange account ctrl-dssz
+    {
+        account_create_operation cop;
+        cop.name = "ctrl-xnhz";
+        cop.registrar = GRAPHENE_TEMP_ACCOUNT;
+        
+        auto account_key = public_key_type("GPH5Fq52B7BkGaN3dyvD62M87eEWhD26K4b1C1Y7ZWHjajNKYdKwk");
+        cop.owner = authority(2, account_key, 1, get_account_id("rescue-xnhz"), 1);
+        
+        cop.active = cop.owner;
+        cop.options.memo_key = account_key;
+        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
+        
+        account_upgrade_operation op;
+        op.account_to_upgrade = account_id;
+        op.upgrade_to_lifetime_member = true;
+        apply_operation(genesis_eval_state, op);
+    }
+    
+    // company account acme-dssz
+    {
+        account_create_operation cop;
+        cop.name = "acme-dssz";
+        cop.registrar = get_account_id("reg-dssz");
+        
+        auto account_key = public_key_type("GPH53PnLezdT59Bi1bU8xwAzQfpLgxBA7yb37A7ZMQWNfH5VqZNrz");
+        cop.owner = authority(1, account_key, 1);
+        
+        cop.active = cop.owner;
+        cop.options.memo_key = account_key;
+        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
+        
+        account_upgrade_operation op;
+        op.account_to_upgrade = account_id;
+        op.upgrade_to_lifetime_member = true;
+        apply_operation(genesis_eval_state, op);
+    }
+    
+    // company account macrosoft-dssz
+    {
+        account_create_operation cop;
+        cop.name = "macrosoft-dssz";
+        cop.registrar = get_account_id("reg-dssz");
+        
+        auto account_key = public_key_type("GPH6KN6mjEjWMxgtTBQLosFaDfdYZqkwktZTJc8d5VWqrDk5NgReV");
+        cop.owner = authority(1, account_key, 1);
+        
+        cop.active = cop.owner;
+        cop.options.memo_key = account_key;
+        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
+        
+        account_upgrade_operation op;
+        op.account_to_upgrade = account_id;
+        op.upgrade_to_lifetime_member = true;
+        apply_operation(genesis_eval_state, op);
+    }
+    
+    // company account gaagle-xnhz
+    {
+        account_create_operation cop;
+        cop.name = "gaagle-xnhz";
+        cop.registrar = get_account_id("reg-xnhz");
+        
+        auto account_key = public_key_type("GPH4uwPHthZmBNKWEQsdwUsweTeCjDLxDk1oc9xCUe5janQM9hFba");
+        cop.owner = authority(1, account_key, 1);
+        
+        cop.active = cop.owner;
+        cop.options.memo_key = account_key;
+        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
+        
+        account_upgrade_operation op;
+        op.account_to_upgrade = account_id;
+        op.upgrade_to_lifetime_member = true;
+        apply_operation(genesis_eval_state, op);
+    }
+    
+    // company account dami-xnhz
+    {
+        account_create_operation cop;
+        cop.name = "dami-xnhz";
+        cop.registrar = get_account_id("reg-xnhz");
+        
+        auto account_key = public_key_type("GPH7GfYSX2dvLBbsGLXsWzPHm3Dzmvp9m1jsTSVExpdeTQEhh5frf");
+        cop.owner = authority(1, account_key, 1);
+        
+        cop.active = cop.owner;
+        cop.options.memo_key = account_key;
+        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
+        
+        account_upgrade_operation op;
+        op.account_to_upgrade = account_id;
+        op.upgrade_to_lifetime_member = true;
+        apply_operation(genesis_eval_state, op);
+    }
+    
+    // investor account alice
+    {
+        account_create_operation cop;
+        cop.name = "alice";
+        cop.registrar = get_account_id("reg-dssz");
+        
+        auto account_key = public_key_type("GPH75jetF6dzrMyQJFerxWAWKHRNRLbdnZUqVh1LqTERHvgxRQHda");
+        // TODO: need another different key
+        cop.owner = authority(2, account_key, 1, account_key, 1, get_account_id("ctrl-dssz"), 1);
+        
+        cop.active = cop.owner;
+        cop.options.memo_key = account_key;
+        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
+        
+        account_upgrade_operation op;
+        op.account_to_upgrade = account_id;
+        op.upgrade_to_lifetime_member = true;
+        apply_operation(genesis_eval_state, op);
+    }
+    
+    // investor account bob
+    {
+        account_create_operation cop;
+        cop.name = "bob";
+        cop.registrar = get_account_id("reg-dssz");
+        
+        auto account_key = public_key_type("GPH6bQ9sU4y7VfPzuHQX4gizTQVLQ1py1D8uCrGrfiuYeB4W6y9ha");
+        // TODO: need another different key
+        cop.owner = authority(2, account_key, 1, account_key, 1, get_account_id("ctrl-dssz"), 1);
+        
+        cop.active = cop.owner;
+        cop.options.memo_key = account_key;
+        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
+        
+        account_upgrade_operation op;
+        op.account_to_upgrade = account_id;
+        op.upgrade_to_lifetime_member = true;
+        apply_operation(genesis_eval_state, op);
+    }
+    
+    // investor account bcd-holding
+    {
+        account_create_operation cop;
+        cop.name = "bcd-holding";
+        cop.registrar = get_account_id("reg-dssz");
+        
+        auto account_key = public_key_type("GPH7xkxvUJsFkuwZ1tDL9wNHmBeL3R7jpnfPLoGvEGcTVCQDd2pN2");
+        // TODO: need another different key
+        cop.owner = authority(2, account_key, 1, account_key, 1, get_account_id("ctrl-dssz"), 1);
+        
+        cop.active = cop.owner;
+        cop.options.memo_key = account_key;
+        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
+        
+        account_upgrade_operation op;
+        op.account_to_upgrade = account_id;
+        op.upgrade_to_lifetime_member = true;
+        apply_operation(genesis_eval_state, op);
+    }
+    
+    // investor account eva
+    {
+        account_create_operation cop;
+        cop.name = "eva";
+        cop.registrar = get_account_id("reg-xnhz");
+        
+        auto account_key = public_key_type("GPH7nVBqJgPRUaZcQrpbzBTEr1uoLXnxMtjJKrAJWasF3AKs8TiTm");
+        // TODO: need another different key
+        cop.owner = authority(2, account_key, 1, account_key, 1, get_account_id("ctrl-xnhz"), 1);
+        
+        cop.active = cop.owner;
+        cop.options.memo_key = account_key;
+        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
+        
+        account_upgrade_operation op;
+        op.account_to_upgrade = account_id;
+        op.upgrade_to_lifetime_member = true;
+        apply_operation(genesis_eval_state, op);
+    }
+    
+    // investor account adam
+    {
+        account_create_operation cop;
+        cop.name = "adam";
+        cop.registrar = get_account_id("reg-xnhz");
+        
+        auto account_key = public_key_type("GPH6f3NzkZ4bAUoX8P6C6mGBJcv8VJauzuE7rSjcdNFJuJJSJDnin");
+        // TODO: need another different key
+        cop.owner = authority(2, account_key, 1, account_key, 1, get_account_id("ctrl-xnhz"), 1);
+        
+        cop.active = cop.owner;
+        cop.options.memo_key = account_key;
+        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
+        
+        account_upgrade_operation op;
+        op.account_to_upgrade = account_id;
+        op.upgrade_to_lifetime_member = true;
+        apply_operation(genesis_eval_state, op);
+    }
+    
+    // investor account sister-corp
+    {
+        account_create_operation cop;
+        cop.name = "sister-corp";
+        cop.registrar = get_account_id("reg-xnhz");
+        
+        auto account_key = public_key_type("GPH58ACMHAWbLxhFEpvifa7TqEfr7W6LVFQPUnVXZ3WnALFJF9Wyr");
+        // TODO: need another different key
+        cop.owner = authority(2, account_key, 1, account_key, 1, get_account_id("ctrl-xnhz"), 1);
+        
+        cop.active = cop.owner;
+        cop.options.memo_key = account_key;
+        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
+        
+        account_upgrade_operation op;
+        op.account_to_upgrade = account_id;
+        op.upgrade_to_lifetime_member = true;
+        apply_operation(genesis_eval_state, op);
+    }
+    
+    // investor account howard
+    {
+        account_create_operation cop;
+        cop.name = "howard";
+        cop.registrar = get_account_id("reg-xnhz");
+        
+        auto account_key = public_key_type("GPH7Nm7svBAEw75DeaCQYEFxa3uBhhh5XV2zdS73iSiB25zyhfkvw");
+        // TODO: need another different key
+        cop.owner = authority(2, account_key, 1, account_key, 1, get_account_id("ctrl-xnhz"), 1);
+        
+        cop.active = cop.owner;
+        cop.options.memo_key = account_key;
+        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
+        
+        account_upgrade_operation op;
+        op.account_to_upgrade = account_id;
+        op.upgrade_to_lifetime_member = true;
+        apply_operation(genesis_eval_state, op);
+    }
+    
+    // investor account jason
+    {
+        account_create_operation cop;
+        cop.name = "jason";
+        cop.registrar = get_account_id("reg-xnhz");
+        
+        auto account_key = public_key_type("GPH8HXj3Npci2wekrvSQKJY4Wb2c2PHMkX3PXc8H9gUqzJAaNTBzc");
+        // TODO: need another different key
+        cop.owner = authority(2, account_key, 1, account_key, 1, get_account_id("ctrl-xnhz"), 1);
+        
+        cop.active = cop.owner;
+        cop.options.memo_key = account_key;
+        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
+        
+        account_upgrade_operation op;
+        op.account_to_upgrade = account_id;
+        op.upgrade_to_lifetime_member = true;
+        apply_operation(genesis_eval_state, op);
+    }
 
    map<asset_id_type, share_type> total_supplies;
    map<asset_id_type, share_type> total_debts;
@@ -512,6 +786,106 @@ void database::init_genesis(const genesis_state_type& genesis_state)
          a.bitasset_data_id = bitasset_data_id;
       });
    }
+    
+    // UIA shares eq-acme
+    {
+        asset_id_type new_asset_id = get_index_type<asset_index>().get_next_id();
+        total_supplies[ new_asset_id ] = 0;
+        
+        asset_dynamic_data_id_type dynamic_data_id;
+        
+        dynamic_data_id = create<asset_dynamic_data_object>([&](asset_dynamic_data_object& d) {
+            d.accumulated_fees = 0;
+        }).id;
+        
+        total_supplies[ new_asset_id ] += 0;
+        
+        create<asset_object>([&](asset_object& a) {
+            a.symbol = "eq-acme";
+            a.options.description = "Company equity issued by acme-dssz.";
+            a.precision = 100;
+            a.issuer = get_account_id("acme-dssz");
+            a.options.max_supply = 100000000;
+            a.options.flags = witness_fed_asset;
+            a.options.issuer_permissions = charge_market_fee | override_authority | white_list | transfer_restricted | disable_confidential;
+            a.dynamic_asset_data_id = dynamic_data_id;
+        });
+    }
+    
+    // UIA shares eq-macrosoft
+    {
+        asset_id_type new_asset_id = get_index_type<asset_index>().get_next_id();
+        total_supplies[ new_asset_id ] = 0;
+        
+        asset_dynamic_data_id_type dynamic_data_id;
+        
+        dynamic_data_id = create<asset_dynamic_data_object>([&](asset_dynamic_data_object& d) {
+            d.accumulated_fees = 0;
+        }).id;
+        
+        total_supplies[ new_asset_id ] += 0;
+        
+        create<asset_object>([&](asset_object& a) {
+            a.symbol = "eq-macrosoft";
+            a.options.description = "Company equity issued by macrosoft-dssz.";
+            a.precision = 100;
+            a.issuer = get_account_id("macrosoft-dssz");
+            a.options.max_supply = 100000000;
+            a.options.flags = witness_fed_asset;
+            a.options.issuer_permissions = charge_market_fee | override_authority | white_list | transfer_restricted | disable_confidential;
+            a.dynamic_asset_data_id = dynamic_data_id;
+        });
+    }
+    
+    // UIA shares eq-gaagle
+    {
+        asset_id_type new_asset_id = get_index_type<asset_index>().get_next_id();
+        total_supplies[ new_asset_id ] = 0;
+        
+        asset_dynamic_data_id_type dynamic_data_id;
+        
+        dynamic_data_id = create<asset_dynamic_data_object>([&](asset_dynamic_data_object& d) {
+            d.accumulated_fees = 0;
+        }).id;
+        
+        total_supplies[ new_asset_id ] += 0;
+        
+        create<asset_object>([&](asset_object& a) {
+            a.symbol = "eq-gaagle";
+            a.options.description = "Company equity issued by gaagle-xnhz.";
+            a.precision = 100;
+            a.issuer = get_account_id("gaagle-xnhz");
+            a.options.max_supply = 100000000;
+            a.options.flags = witness_fed_asset;
+            a.options.issuer_permissions = charge_market_fee | override_authority | white_list | transfer_restricted | disable_confidential;
+            a.dynamic_asset_data_id = dynamic_data_id;
+        });
+    }
+    
+    // UIA shares eq-dami
+    {
+        asset_id_type new_asset_id = get_index_type<asset_index>().get_next_id();
+        total_supplies[ new_asset_id ] = 0;
+        
+        asset_dynamic_data_id_type dynamic_data_id;
+        
+        dynamic_data_id = create<asset_dynamic_data_object>([&](asset_dynamic_data_object& d) {
+            d.accumulated_fees = 0;
+        }).id;
+        
+        total_supplies[ new_asset_id ] += 0;
+        
+        create<asset_object>([&](asset_object& a) {
+            a.symbol = "eq-dami";
+            a.options.description = "Company equity issued by dami-xnhz.";
+            a.precision = 100;
+            a.issuer = get_account_id("dami-xnhz");
+            a.options.max_supply = 100000000;
+            a.options.flags = witness_fed_asset;
+            a.options.issuer_permissions = charge_market_fee | override_authority | white_list | transfer_restricted | disable_confidential;
+            a.dynamic_asset_data_id = dynamic_data_id;
+        });
+    }
 
    // Create initial balances
    share_type total_allocation;

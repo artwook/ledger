@@ -1,6 +1,6 @@
 {
   "initial_timestamp": "2016-01-09T00:00:00",
-  "max_core_supply": "1000000000000000",
+  "max_core_supply": "100000000000000",
   "initial_parameters": {
     "block_interval": 1,
     "maintenance_interval": 86400,
@@ -91,13 +91,86 @@
       "owner_key": "GPH6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV",
       "active_key": "GPH6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV",
       "is_lifetime_member": false
+    },{
+      "name": "fed-bank",
+      "owner_key": "GPH5wen3ES4H4GbdPqzTsvzAgXuj5vaF81FemMw9DuXeC2cSwixf5",
+      "active_key": "GPH5wen3ES4H4GbdPqzTsvzAgXuj5vaF81FemMw9DuXeC2cSwixf5",
+      "is_lifetime_member": true
+    },{
+      "name": "reg-dssz",
+      "owner_key": "GPH8XUYAAtVZhxb5HovxPm6qR6RXcAK1YrBQ7P7GxF5pjYgBxhvXt",
+      "active_key": "GPH8XUYAAtVZhxb5HovxPm6qR6RXcAK1YrBQ7P7GxF5pjYgBxhvXt",
+      "is_lifetime_member": true
+    },{
+      "name": "cm-dssz",
+      "owner_key": "GPH6khG5GogQXH8ex5xoNKo9BdsYrXNPxJF5DzUPG6KeWRsAvgLjr",
+      "active_key": "GPH6khG5GogQXH8ex5xoNKo9BdsYrXNPxJF5DzUPG6KeWRsAvgLjr",
+      "is_lifetime_member": true
+    },{
+      "name": "rescue-dssz",
+      "owner_key": "GPH8PGt8B2HtXMNXzP8dkTZ2RxEes1ssAwunUeh4WxBHLw22PFwHH",
+      "active_key": "GPH8PGt8B2HtXMNXzP8dkTZ2RxEes1ssAwunUeh4WxBHLw22PFwHH",
+      "is_lifetime_member": true
+    },{
+      "name": "reg-xnhz",
+      "owner_key": "GPH7N2tFxGMRA312D4JrJGwgpM9XdVwtxZPraQURAmKp3FMKzSxLC",
+      "active_key": "GPH7N2tFxGMRA312D4JrJGwgpM9XdVwtxZPraQURAmKp3FMKzSxLC",
+      "is_lifetime_member": true
+    },{
+      "name": "cm-xnhz",
+      "owner_key": "GPH8hpKZNDNNz7NmcHqzg3JNaKsZ48BAgkK5E7uS82VdrCESJbwzr",
+      "active_key": "GPH8hpKZNDNNz7NmcHqzg3JNaKsZ48BAgkK5E7uS82VdrCESJbwzr",
+      "is_lifetime_member": true
+    },{
+      "name": "rescue-xnhz",
+      "owner_key": "GPH5X9LqWRs5xQxbhv5Qkw79YYRsoZmXM3QJxFATZdbFLy86Lh3Qg",
+      "active_key": "GPH5X9LqWRs5xQxbhv5Qkw79YYRsoZmXM3QJxFATZdbFLy86Lh3Qg",
+      "is_lifetime_member": true
     }
   ],
-  "initial_assets": [],
+  "initial_assets": [{
+      "symbol": "CNY",
+      "issuer_name": "fed-bank",
+      "description": "Federal Central Bank Issued CNY",
+      "precision": 4,
+      "max_supply": "200000000000",
+      "accumulated_fees": 0,
+      "is_bitasset": false,
+      "collateral_records": []
+    }
+  ],
   "initial_balances": [{
-      "owner": "GPHFAbAx7yuxt725qSZvfwWqkdCwp9ZnUama",
+      "owner": "GPHJgFjYWoL4XWqZGdzCu99qCMgisRMzhYSM",
       "asset_symbol": "CORE",
-      "amount": "1000000000000000"
+      "amount": "1000000000000"
+    },{
+      "owner": "GPHG4SXGhHAfQnd6BsZYVTL3zPHaivMfzrLR",
+      "asset_symbol": "CORE",
+      "amount": "1000000000000"
+    },{
+      "owner": "GPH2HXkqqbKZike3Kdkdex8bgpZF1VW3GrYk",
+      "asset_symbol": "CORE",
+      "amount": "1000000000000"
+    },{
+      "owner": "GPH9Ua1FpZwB5Mr8Cd2Tio1jTAyY8cjWnF7b",
+      "asset_symbol": "CORE",
+      "amount": "1000000000000"
+    },{
+      "owner": "GPHKG8LhUtoprfu61pvnMhB2GmXfci5CM5nx",
+      "asset_symbol": "CORE",
+      "amount": "1000000000000"
+    },{
+      "owner": "GPH6A1SFkaP3jKe9qeTeKu7o6J3poVCwFDmG",
+      "asset_symbol": "CORE",
+      "amount": "1000000000000"
+    },{
+      "owner": "GPH8pRUv63WebEwFo5w7xxeoN46o94nebYvn",
+      "asset_symbol": "CORE",
+      "amount": "1000000000000"
+    },{
+      "owner": "GPHF6ffY6UjUMSPGWSQSyKjpnF16qEfXrn2Z",
+      "asset_symbol": "CORE",
+      "amount": "1000000000000"
     }
   ],
   "initial_vesting_balances": [],
