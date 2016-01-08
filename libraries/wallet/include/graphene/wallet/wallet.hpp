@@ -776,7 +776,7 @@ class wallet_api
       blind_confirmation transfer_to_blind( string from_account_id_or_name, 
                                             string asset_symbol,
                                             /** map from key or label to amount */
-                                            map<string, string> to_amounts, 
+                                            vector<pair<string, string>> to_amounts, 
                                             bool broadcast = false );
 
       /**
@@ -1450,7 +1450,7 @@ FC_REFLECT( graphene::wallet::brain_key_info,
             (brain_priv_key)
             (wif_priv_key)
             (pub_key)
-          );
+          )
 
 FC_REFLECT( graphene::wallet::exported_account_keys, (account_name)(encrypted_private_keys)(public_keys) )
 

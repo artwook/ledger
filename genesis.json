@@ -1,0 +1,172 @@
+{
+  "initial_timestamp": "2016-01-09T00:00:00",
+  "max_core_supply": "1000000000000000",
+  "initial_parameters": {
+    "block_interval": 1,
+    "maintenance_interval": 86400,
+    "maintenance_skip_slots": 3,
+    "committee_proposal_review_period": 1209600,
+    "maximum_transaction_size": 2048,
+    "maximum_block_size": 2048000000,
+    "maximum_time_until_expiration": 86400,
+    "maximum_proposal_lifetime": 2419200,
+    "maximum_asset_whitelist_authorities": 10,
+    "maximum_asset_feed_publishers": 10,
+    "maximum_witness_count": 1001,
+    "maximum_committee_count": 1001,
+    "maximum_authority_membership": 10,
+    "reserve_percent_of_fee": 2000,
+    "network_percent_of_fee": 2000,
+    "lifetime_referrer_percent_of_fee": 3000,
+    "cashback_vesting_period_seconds": 31536000,
+    "cashback_vesting_threshold": 10000000,
+    "count_non_member_votes": true,
+    "allow_non_member_whitelists": false,
+    "witness_pay_per_block": 1000000,
+    "worker_budget_per_day": "50000000000",
+    "max_predicate_opcode": 1,
+    "fee_liquidation_threshold": 10000000,
+    "accounts_per_fee_scale": 1000,
+    "account_fee_scale_bitshifts": 4,
+    "max_authority_depth": 2,
+    "extensions": []
+  },
+  "initial_accounts": [{
+      "name": "init0",
+      "owner_key": "GPH5jBTo7enKCSgNZUqSAMfi56zUts4PRhvHPm4EQAwn7thm6dAk6",
+      "active_key": "GPH5ZKVuSqGEXCsGu6bDhJFqqW3amYvmoj6GacFqmsgVJEjUGRLUx",
+      "is_lifetime_member": true
+    },{
+      "name": "init1",
+      "owner_key": "GPH5piewc3xpBTm2YYUd6r7ZZM8xvMypFsQ9aLtgrRWABxMsw1sdF",
+      "active_key": "GPH5R8zA7VEPec1CRC4bQnmApKUW6Tt5kSFUSMaA9WjkuBeSX491E",
+      "is_lifetime_member": true
+    },{
+      "name": "init2",
+      "owner_key": "GPH7TDooERRddgZE5xCSdmZqxAEYZBuiaef6mqqBg1M5J2eP9bn9Q",
+      "active_key": "GPH7UxoRMsQD4XbkUspYsMB2rwM84fUe2gxtpUKsSjSLiPbi2NVbT",
+      "is_lifetime_member": true
+    },{
+      "name": "init3",
+      "owner_key": "GPH5HhWX6TbKETQqVmcSfGbtyKXzXa8KeR5w59WzU3skqL3k5jRxu",
+      "active_key": "GPH6v2wX7Fs219iGhr5amDrUCDDf33XF9FYXP6ovsJG92QW1LU6fR",
+      "is_lifetime_member": true
+    },{
+      "name": "init4",
+      "owner_key": "GPH6PzoevnupqWcGwkSkq2L1aq883F7AZ51kLYkYobk6tqNnRzcvR",
+      "active_key": "GPH5UHPuS6fDqcsk3XaeHTNYMdXDEjVhJAJm9Yrmj7eYGyFq9EXZh",
+      "is_lifetime_member": true
+    },{
+      "name": "init5",
+      "owner_key": "GPH82CrGRycEoja6DTwqEfgzU63G5UqaHbz2decnRnSMmpFMm5FHC",
+      "active_key": "GPH7KPD3G76Bg9JTWX1xaqFi9D5REYph6odVcaA4kr4NKBVdYrsY5",
+      "is_lifetime_member": true
+    },{
+      "name": "init6",
+      "owner_key": "GPH5WVtdeReu718f5RLNLFcpLqxur8vTcMFsZf1qJr6qeFuNvZSeW",
+      "active_key": "GPH5oN6iwiF5f7T4RAERGrU63uKfdpMAcHwsynLnbY4rRA64AoqW6",
+      "is_lifetime_member": true
+    },{
+      "name": "init7",
+      "owner_key": "GPH6ETXYvrUCVDAF1M7ncaKPRQZX2U98SbTCf88zhWhLqzLwxaPf8",
+      "active_key": "GPH7x12b5acJeHFFn8UXeS7cq8PFHifkxchTCM7AJApvKWsPxYTnY",
+      "is_lifetime_member": true
+    },{
+      "name": "init8",
+      "owner_key": "GPH6waNRHbp9gAQZxzaqytMwkJUYWZCNWvaDRWHuJqzYDixLF3bG4",
+      "active_key": "GPH8QavxVq2ErJQxcchZUBWt9GZi5DNCYzkas9e2i7a19XSx8TSNU",
+      "is_lifetime_member": true
+    },{
+      "name": "init9",
+      "owner_key": "GPH7721km5RFeUnXD7tyJi8nPa6RyrRGHHyS1zCrkDW7pXHFjG9ya",
+      "active_key": "GPH65ynCfhLhvucDZF4QBTGVMjJB1ywm3yikGo31k3P9k4oTKXFBB",
+      "is_lifetime_member": true
+    },{
+      "name": "init10",
+      "owner_key": "GPH54g4pc85hkAbau27XW19BS2XEueSzB2ghaA56NJsA877QVquz4",
+      "active_key": "GPH6BRStcv6zks7sfTKfaJzioePG1muzk3FKajbZpWmYrpoeCmyc1",
+      "is_lifetime_member": true
+    },{
+      "name": "nathan",
+      "owner_key": "GPH6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV",
+      "active_key": "GPH6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV",
+      "is_lifetime_member": false
+    }
+  ],
+  "initial_assets": [],
+  "initial_balances": [{
+      "owner": "GPHFAbAx7yuxt725qSZvfwWqkdCwp9ZnUama",
+      "asset_symbol": "CORE",
+      "amount": "1000000000000000"
+    }
+  ],
+  "initial_vesting_balances": [],
+  "initial_active_witnesses": 11,
+  "initial_witness_candidates": [{
+      "owner_name": "init0",
+      "block_signing_key": "GPH4wxCJoTCxxU27gSdQw94aGThb6d2vgqcobBJWmKasNdcSd4fST"
+    },{
+      "owner_name": "init1",
+      "block_signing_key": "GPH859dLbXsYQiXrHjDnKawXFkctdKPus96r1e2bpnShibkuN8EGV"
+    },{
+      "owner_name": "init2",
+      "block_signing_key": "GPH8YBtW6kRtADkeN4VpYXUUj7PaBh6f1k3WHpxNaegdVGbBJPs5q"
+    },{
+      "owner_name": "init3",
+      "block_signing_key": "GPH6heez8SubWxhZvh29Ede6iJdJgfURh4Cct55HAGaS4ieWHw4ZH"
+    },{
+      "owner_name": "init4",
+      "block_signing_key": "GPH6fdmCi8j9sBHjb3Up969tVQn761Nh3S4znEDp4mRmPGDZke5kT"
+    },{
+      "owner_name": "init5",
+      "block_signing_key": "GPH5mq7iYYC8d5dkSgqjQjdDB9ppLa6vx4nJNcAzQujRyq26U1f9R"
+    },{
+      "owner_name": "init6",
+      "block_signing_key": "GPH6GhShrAhZBLRFwhFc5wghGuqQ6ncc7pGrfHgPxtH8tdrMeYkgY"
+    },{
+      "owner_name": "init7",
+      "block_signing_key": "GPH8D5gAWiGWu8Tq3fXxmJnDzjMjYqxrkKD55xyUPzypRfDLWsR98"
+    },{
+      "owner_name": "init8",
+      "block_signing_key": "GPH8Ztqrw4NMpH8iHwsKupxvWqZejThuMxDmgWVKGbnfdNMWRkUnu"
+    },{
+      "owner_name": "init9",
+      "block_signing_key": "GPH8Fa9nDeAvGsuVpib4NBK95ogxXxE2GaGRmsxSB4cFV8ZSadpyi"
+    },{
+      "owner_name": "init10",
+      "block_signing_key": "GPH84CemGz76CNgRBykwBMfXwrR12VY8mhrq5cMYcEFEf4uiuypBb"
+    }
+  ],
+  "initial_committee_candidates": [{
+      "owner_name": "init0"
+    },{
+      "owner_name": "init1"
+    },{
+      "owner_name": "init2"
+    },{
+      "owner_name": "init3"
+    },{
+      "owner_name": "init4"
+    },{
+      "owner_name": "init5"
+    },{
+      "owner_name": "init6"
+    },{
+      "owner_name": "init7"
+    },{
+      "owner_name": "init8"
+    },{
+      "owner_name": "init9"
+    },{
+      "owner_name": "init10"
+    }
+  ],
+  "initial_worker_candidates": [],
+  "initial_chain_id": "aa34045518f1469a28fa4578240d5f039afa9959c0b95ce3b39674efa691fb21",
+  "immutable_parameters": {
+    "min_committee_member_count": 11,
+    "min_witness_count": 11,
+    "num_special_accounts": 0,
+    "num_special_assets": 0
+  }
+}

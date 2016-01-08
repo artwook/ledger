@@ -112,7 +112,7 @@ namespace detail {
 
       void reset_p2p_node(const fc::path& data_dir)
       { try {
-         _p2p_network = std::make_shared<net::node>("Graphene Reference Implementation");
+         _p2p_network = std::make_shared<net::node>("FedEqEx Reference Implementation");
 
          _p2p_network->load_configuration(data_dir / "p2p");
          _p2p_network->set_node_delegate(this);
@@ -128,6 +128,50 @@ namespace detail {
                   ilog("Adding seed node ${endpoint}", ("endpoint", endpoint));
                   _p2p_network->add_node(endpoint);
                   _p2p_network->connect_to_endpoint(endpoint);
+               }
+            }
+         }
+
+         if( _options->count("seed-nodes") )
+         {
+            auto seeds_str = _options->at("seed-nodes").as<string>();
+            auto seeds = fc::json::from_string(seeds_str).as<vector<string>>();
+            for( const string& endpoint_string : seeds )
+            {
+               std::vector<fc::ip::endpoint> endpoints = resolve_string_to_ip_endpoints(endpoint_string);
+               for (const fc::ip::endpoint& endpoint : endpoints)
+               {
+                  ilog("Adding seed node ${endpoint}", ("endpoint", endpoint));
+                  _p2p_network->add_node(endpoint);
+               }
+            }
+         }
+         else
+         {
+            vector<string> seeds = {
+               "faucet.bitshares.org:1776",
+               "bitshares.openledger.info:1776",
+               "114.92.254.159:62015",
+               "seed.blocktrades.us:1776",
+               "seed04.bitsharesnodes.com:1776", // thom
+               "seed05.bitsharesnodes.com:1776", // thom
+               "seed06.bitsharesnodes.com:1776", // thom
+               "seed07.bitsharesnodes.com:1776", // thom
+               "128.199.131.4:1777", // cube
+               "54.85.252.77:39705", // lafona
+               "104.236.144.84:1777", // puppies
+               "40.127.190.171:1777", // betax
+               "185.25.22.21:1776", // liondani (greece)
+               "23.95.43.126:50696", // iHashFury
+               "109.73.172.144:50696" // iHashFury
+            };
+            for( const string& endpoint_string : seeds )
+            {
+               std::vector<fc::ip::endpoint> endpoints = resolve_string_to_ip_endpoints(endpoint_string);
+               for (const fc::ip::endpoint& endpoint : endpoints)
+               {
+                  ilog("Adding seed node ${endpoint}", ("endpoint", endpoint));
+                  _p2p_network->add_node(endpoint);
                }
             }
          }
@@ -328,7 +372,7 @@ namespace detail {
                fc::read_file_contents( _data_dir / "db_version", version_str );
                return (version_str != GRAPHENE_CURRENT_DB_VERSION);
             };
-            if( !is_new() && is_outdated() ) 
+            if( !is_new() && is_outdated() )
             {
                ilog("Replaying blockchain due to version upgrade");
 
@@ -445,7 +489,7 @@ namespace detail {
             const auto& witness = blk_msg.block.witness(*_chain_db);
             const auto& witness_account = witness.witness_account(*_chain_db);
             auto last_irr = _chain_db->get_dynamic_global_properties().last_irreversible_block_num;
-            ilog("Got block: #${n} time: ${t} latency: ${l} ms from: ${w}  irreversible: ${i} (-${d})", 
+            ilog("Got block: #${n} time: ${t} latency: ${l} ms from: ${w}  irreversible: ${i} (-${d})",
                  ("t",blk_msg.block.timestamp)
                  ("n", blk_msg.block.block_num())
                  ("l", (latency.count()/1000))
@@ -540,7 +584,7 @@ namespace detail {
 
          result.reserve(limit);
          block_id_type last_known_block_id;
-         
+
          if (blockchain_synopsis.empty() ||
              (blockchain_synopsis.size() == 1 && blockchain_synopsis[0] == block_id_type()))
          {
@@ -601,13 +645,13 @@ namespace detail {
       }
 
       /**
-       * Returns a synopsis of the blockchain used for syncing.  This consists of a list of 
+       * Returns a synopsis of the blockchain used for syncing.  This consists of a list of
        * block hashes at intervals exponentially increasing towards the genesis block.
        * When syncing to a peer, the peer uses this data to determine if we're on the same
        * fork as they are, and if not, what blocks they need to send us to get us on their
        * fork.
        *
-       * In the over-simplified case, this is a straighforward synopsis of our current 
+       * In the over-simplified case, this is a straighforward synopsis of our current
        * preferred blockchain; when we first connect up to a peer, this is what we will be sending.
        * It looks like this:
        *   If the blockchain is empty, it will return the empty list.
@@ -623,7 +667,7 @@ namespace detail {
        *     the last item in the list will be the hash of the most recent block on our preferred chain
        * so if the blockchain had 26 blocks labeled a - z, the synopsis would be:
        *    a n u x z
-       * the idea being that by sending a small (<30) number of block ids, we can summarize a huge 
+       * the idea being that by sending a small (<30) number of block ids, we can summarize a huge
        * blockchain.  The block ids are more dense near the end of the chain where because we are
        * more likely to be almost in sync when we first connect, and forks are likely to be short.
        * If the peer we're syncing with in our example is on a fork that started at block 'v',
@@ -638,27 +682,27 @@ namespace detail {
        * no reason to fetch the blocks.
        *
        * Second, when a peer replies to our initial synopsis and gives us a list of the blocks they think
-       * we are missing, they only send a chunk of a few thousand blocks at once.  After we get those 
+       * we are missing, they only send a chunk of a few thousand blocks at once.  After we get those
        * block ids, we need to request more blocks by sending another synopsis (we can't just say "send me
        * the next 2000 ids" because they may have switched forks themselves and they don't track what
        * they've sent us).  For faster performance, we want to get a fairly long list of block ids first,
        * then start downloading the blocks.
        * The peer doesn't handle these follow-up block id requests any different from the initial request;
        * it treats the synopsis we send as our blockchain and bases its response entirely off that.  So to
-       * get the response we want (the next chunk of block ids following the last one they sent us, or, 
+       * get the response we want (the next chunk of block ids following the last one they sent us, or,
        * failing that, the shortest fork off of the last list of block ids they sent), we need to construct
        * a synopsis as if our blockchain was made up of:
        *    1. the blocks in our block chain up to the fork point (if there is a fork) or the head block (if no fork)
        *    2. the blocks we've already pushed from their fork (if there's a fork)
        *    3. the block ids they've previously sent us
-       * Segment 3 is handled in the p2p code, it just tells us the number of blocks it has (in 
+       * Segment 3 is handled in the p2p code, it just tells us the number of blocks it has (in
        * number_of_blocks_after_reference_point) so we can leave space in the synopsis for them.
        * We're responsible for constructing the synopsis of Segments 1 and 2 from our active blockchain and
        * fork database.  The reference_point parameter is the last block from that peer that has been
        * successfully pushed to the blockchain, so that tells us whether the peer is on a fork or on
        * the main chain.
        */
-      virtual std::vector<item_hash_t> get_blockchain_synopsis(const item_hash_t& reference_point, 
+      virtual std::vector<item_hash_t> get_blockchain_synopsis(const item_hash_t& reference_point,
                                                                uint32_t number_of_blocks_after_reference_point) override
       { try {
           std::vector<item_hash_t> synopsis;
@@ -683,13 +727,13 @@ namespace detail {
 
               if (reference_point_block_num < low_block_num)
               {
-                // we're on the same fork (at least as far as reference_point) but we've passed 
-                // reference point and could no longer undo that far if we diverged after that 
+                // we're on the same fork (at least as far as reference_point) but we've passed
+                // reference point and could no longer undo that far if we diverged after that
                 // block.  This should probably only happen due to a race condition where
-                // the network thread calls this function, and then immediately pushes a bunch of blocks, 
+                // the network thread calls this function, and then immediately pushes a bunch of blocks,
                 // then the main thread finally processes this function.
                 // with the current framework, there's not much we can do to tell the network
-                // thread what our current head block is, so we'll just pretend that 
+                // thread what our current head block is, so we'll just pretend that
                 // our head is actually the reference point.
                 // this *may* enable us to fetch blocks that we're unable to push, but that should
                 // be a rare case (and correctly handled)
@@ -733,7 +777,7 @@ namespace detail {
               if (non_fork_high_block_num < low_block_num)
               {
                 wlog("Unable to generate a usable synopsis because the peer we're generating it for forked too long ago "
-                     "(our chains diverge after block #${non_fork_high_block_num} but only undoable to block #${low_block_num})", 
+                     "(our chains diverge after block #${non_fork_high_block_num} but only undoable to block #${low_block_num})",
                      ("low_block_num", low_block_num)
                      ("non_fork_high_block_num", non_fork_high_block_num));
                 FC_THROW_EXCEPTION(graphene::net::block_older_than_undo_history, "Peer is are on a fork I'm unable to switch to");
@@ -750,11 +794,11 @@ namespace detail {
           }
 
           // at this point:
-          // low_block_num is the block before the first block we can undo, 
+          // low_block_num is the block before the first block we can undo,
           // non_fork_high_block_num is the block before the fork (if the peer is on a fork, or otherwise it is the same as high_block_num)
           // high_block_num is the block number of the reference block, or the end of the chain if no reference provided
 
-          // true_high_block_num is the ending block number after the network code appends any item ids it 
+          // true_high_block_num is the ending block number after the network code appends any item ids it
           // knows about that we don't
           uint32_t true_high_block_num = high_block_num + number_of_blocks_after_reference_point;
           do
@@ -770,7 +814,7 @@ namespace detail {
           }
           while (low_block_num <= high_block_num);
 
-          idump((synopsis));
+          //idump((synopsis));
           return synopsis;
       } FC_CAPTURE_AND_RETHROW() }
 
@@ -877,6 +921,7 @@ void application::set_program_options(boost::program_options::options_descriptio
    configuration_file_options.add_options()
          ("p2p-endpoint", bpo::value<string>(), "Endpoint for P2P node to listen on")
          ("seed-node,s", bpo::value<vector<string>>()->composing(), "P2P nodes to connect to on startup (may specify multiple times)")
+         ("seed-nodes", bpo::value<string>()->composing(), "JSON array of P2P nodes to connect to on startup")
          ("checkpoint,c", bpo::value<vector<string>>()->composing(), "Pairs of [BLOCK_NUM,BLOCK_ID] that should be enforced as checkpoints.")
          ("rpc-endpoint", bpo::value<string>()->implicit_value("127.0.0.1:8090"), "Endpoint for websocket RPC to listen on")
          ("rpc-tls-endpoint", bpo::value<string>()->implicit_value("127.0.0.1:8089"), "Endpoint for TLS websocket RPC to listen on")

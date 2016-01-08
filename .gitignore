@@ -38,3 +38,5 @@ object_database/*
 
 *.pyc
 *.pyo
+
+**/*.DS_Store

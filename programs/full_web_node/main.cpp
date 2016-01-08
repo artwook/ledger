@@ -32,10 +32,10 @@ int main(int argc, char *argv[])
 {
    fc::thread::current().set_name("main");
    QGuiApplication app(argc, argv);
-   app.setApplicationName("GrapheneOct5");
+   app.setApplicationName("FedEqEx");
    app.setApplicationDisplayName(app.applicationName());
-   app.setOrganizationDomain("cryptonomex.org");
-   app.setOrganizationName("Cryptonomex, Inc.");
+   app.setOrganizationDomain("chainreactions.org");
+   app.setOrganizationName("ChainReactions");
 
    QtWebEngine::initialize();
    qmlRegisterType<BlockChain>("Graphene.FullNode", 1, 0, "BlockChain");
