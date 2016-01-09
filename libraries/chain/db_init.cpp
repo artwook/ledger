@@ -492,12 +492,7 @@ void database::init_genesis(const genesis_state_type& genesis_state)
         
         cop.active = cop.owner;
         cop.options.memo_key = account_key;
-        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
-        
-        account_upgrade_operation op;
-        op.account_to_upgrade = account_id;
-        op.upgrade_to_lifetime_member = true;
-        apply_operation(genesis_eval_state, op);
+        apply_operation(genesis_eval_state, cop);
     }
     
     // company account macrosoft-dssz
@@ -511,12 +506,7 @@ void database::init_genesis(const genesis_state_type& genesis_state)
         
         cop.active = cop.owner;
         cop.options.memo_key = account_key;
-        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
-        
-        account_upgrade_operation op;
-        op.account_to_upgrade = account_id;
-        op.upgrade_to_lifetime_member = true;
-        apply_operation(genesis_eval_state, op);
+        apply_operation(genesis_eval_state, cop);
     }
     
     // company account gaagle-xnhz
@@ -530,12 +520,7 @@ void database::init_genesis(const genesis_state_type& genesis_state)
         
         cop.active = cop.owner;
         cop.options.memo_key = account_key;
-        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
-        
-        account_upgrade_operation op;
-        op.account_to_upgrade = account_id;
-        op.upgrade_to_lifetime_member = true;
-        apply_operation(genesis_eval_state, op);
+        apply_operation(genesis_eval_state, cop);
     }
     
     // company account dami-xnhz
@@ -549,12 +534,7 @@ void database::init_genesis(const genesis_state_type& genesis_state)
         
         cop.active = cop.owner;
         cop.options.memo_key = account_key;
-        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
-        
-        account_upgrade_operation op;
-        op.account_to_upgrade = account_id;
-        op.upgrade_to_lifetime_member = true;
-        apply_operation(genesis_eval_state, op);
+        apply_operation(genesis_eval_state, cop);
     }
     
     // investor account alice
@@ -565,16 +545,11 @@ void database::init_genesis(const genesis_state_type& genesis_state)
         
         auto account_key = public_key_type("GPH75jetF6dzrMyQJFerxWAWKHRNRLbdnZUqVh1LqTERHvgxRQHda");
         // TODO: need another different key
-        cop.owner = authority(2, account_key, 1, account_key, 1, get_account_id("ctrl-dssz"), 1);
+        cop.owner = authority(2, account_key, 2, get_account_id("ctrl-dssz"), 1);
         
         cop.active = cop.owner;
         cop.options.memo_key = account_key;
-        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
-        
-        account_upgrade_operation op;
-        op.account_to_upgrade = account_id;
-        op.upgrade_to_lifetime_member = true;
-        apply_operation(genesis_eval_state, op);
+        apply_operation(genesis_eval_state, cop);
     }
     
     // investor account bob
@@ -585,16 +560,11 @@ void database::init_genesis(const genesis_state_type& genesis_state)
         
         auto account_key = public_key_type("GPH6bQ9sU4y7VfPzuHQX4gizTQVLQ1py1D8uCrGrfiuYeB4W6y9ha");
         // TODO: need another different key
-        cop.owner = authority(2, account_key, 1, account_key, 1, get_account_id("ctrl-dssz"), 1);
+        cop.owner = authority(2, account_key, 2, get_account_id("ctrl-dssz"), 1);
         
         cop.active = cop.owner;
         cop.options.memo_key = account_key;
-        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
-        
-        account_upgrade_operation op;
-        op.account_to_upgrade = account_id;
-        op.upgrade_to_lifetime_member = true;
-        apply_operation(genesis_eval_state, op);
+        apply_operation(genesis_eval_state, cop);
     }
     
     // investor account bcd-holding
@@ -605,16 +575,11 @@ void database::init_genesis(const genesis_state_type& genesis_state)
         
         auto account_key = public_key_type("GPH7xkxvUJsFkuwZ1tDL9wNHmBeL3R7jpnfPLoGvEGcTVCQDd2pN2");
         // TODO: need another different key
-        cop.owner = authority(2, account_key, 1, account_key, 1, get_account_id("ctrl-dssz"), 1);
+        cop.owner = authority(2, account_key, 2, get_account_id("ctrl-dssz"), 1);
         
         cop.active = cop.owner;
         cop.options.memo_key = account_key;
-        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
-        
-        account_upgrade_operation op;
-        op.account_to_upgrade = account_id;
-        op.upgrade_to_lifetime_member = true;
-        apply_operation(genesis_eval_state, op);
+        apply_operation(genesis_eval_state, cop);
     }
     
     // investor account eva
@@ -625,16 +590,11 @@ void database::init_genesis(const genesis_state_type& genesis_state)
         
         auto account_key = public_key_type("GPH7nVBqJgPRUaZcQrpbzBTEr1uoLXnxMtjJKrAJWasF3AKs8TiTm");
         // TODO: need another different key
-        cop.owner = authority(2, account_key, 1, account_key, 1, get_account_id("ctrl-xnhz"), 1);
+        cop.owner = authority(2, account_key, 2, get_account_id("ctrl-xnhz"), 1);
         
         cop.active = cop.owner;
         cop.options.memo_key = account_key;
-        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
-        
-        account_upgrade_operation op;
-        op.account_to_upgrade = account_id;
-        op.upgrade_to_lifetime_member = true;
-        apply_operation(genesis_eval_state, op);
+        apply_operation(genesis_eval_state, cop);
     }
     
     // investor account adam
@@ -645,16 +605,11 @@ void database::init_genesis(const genesis_state_type& genesis_state)
         
         auto account_key = public_key_type("GPH6f3NzkZ4bAUoX8P6C6mGBJcv8VJauzuE7rSjcdNFJuJJSJDnin");
         // TODO: need another different key
-        cop.owner = authority(2, account_key, 1, account_key, 1, get_account_id("ctrl-xnhz"), 1);
+        cop.owner = authority(2, account_key, 2, get_account_id("ctrl-xnhz"), 1);
         
         cop.active = cop.owner;
         cop.options.memo_key = account_key;
-        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
-        
-        account_upgrade_operation op;
-        op.account_to_upgrade = account_id;
-        op.upgrade_to_lifetime_member = true;
-        apply_operation(genesis_eval_state, op);
+        apply_operation(genesis_eval_state, cop);
     }
     
     // investor account sister-corp
@@ -665,16 +620,11 @@ void database::init_genesis(const genesis_state_type& genesis_state)
         
         auto account_key = public_key_type("GPH58ACMHAWbLxhFEpvifa7TqEfr7W6LVFQPUnVXZ3WnALFJF9Wyr");
         // TODO: need another different key
-        cop.owner = authority(2, account_key, 1, account_key, 1, get_account_id("ctrl-xnhz"), 1);
+        cop.owner = authority(2, account_key, 2, get_account_id("ctrl-xnhz"), 1);
         
         cop.active = cop.owner;
         cop.options.memo_key = account_key;
-        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
-        
-        account_upgrade_operation op;
-        op.account_to_upgrade = account_id;
-        op.upgrade_to_lifetime_member = true;
-        apply_operation(genesis_eval_state, op);
+        apply_operation(genesis_eval_state, cop);
     }
     
     // investor account howard
@@ -685,16 +635,11 @@ void database::init_genesis(const genesis_state_type& genesis_state)
         
         auto account_key = public_key_type("GPH7Nm7svBAEw75DeaCQYEFxa3uBhhh5XV2zdS73iSiB25zyhfkvw");
         // TODO: need another different key
-        cop.owner = authority(2, account_key, 1, account_key, 1, get_account_id("ctrl-xnhz"), 1);
+        cop.owner = authority(2, account_key, 2, get_account_id("ctrl-xnhz"), 1);
         
         cop.active = cop.owner;
         cop.options.memo_key = account_key;
-        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
-        
-        account_upgrade_operation op;
-        op.account_to_upgrade = account_id;
-        op.upgrade_to_lifetime_member = true;
-        apply_operation(genesis_eval_state, op);
+        apply_operation(genesis_eval_state, cop);
     }
     
     // investor account jason
@@ -705,16 +650,11 @@ void database::init_genesis(const genesis_state_type& genesis_state)
         
         auto account_key = public_key_type("GPH8HXj3Npci2wekrvSQKJY4Wb2c2PHMkX3PXc8H9gUqzJAaNTBzc");
         // TODO: need another different key
-        cop.owner = authority(2, account_key, 1, account_key, 1, get_account_id("ctrl-xnhz"), 1);
+        cop.owner = authority(2, account_key, 2, get_account_id("ctrl-xnhz"), 1);
         
         cop.active = cop.owner;
         cop.options.memo_key = account_key;
-        account_id_type account_id(apply_operation(genesis_eval_state, cop).get<object_id_type>());
-        
-        account_upgrade_operation op;
-        op.account_to_upgrade = account_id;
-        op.upgrade_to_lifetime_member = true;
-        apply_operation(genesis_eval_state, op);
+        apply_operation(genesis_eval_state, cop);
     }
 
    map<asset_id_type, share_type> total_supplies;

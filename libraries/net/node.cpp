@@ -236,6 +236,10 @@ namespace graphene { namespace net {
        * the future to support some notion of trusted peers.
        */
       fc::ecc::private_key private_key;
+        
+      bool accept_public_peers;
+        
+      std::vector< fc::ecc::public_key > accepted_peer_keys;
     };
 
 
@@ -243,7 +247,10 @@ namespace graphene { namespace net {
 FC_REFLECT(graphene::net::detail::node_configuration, (listen_endpoint)
                                                  (accept_incoming_connections)
                                                  (wait_if_endpoint_is_busy)
-                                                 (private_key));
+                                                 (private_key)
+                                                 (accept_public_peers)
+                                                 (accepted_peer_keys)
+           );
 
 namespace graphene { namespace net { namespace detail {
 
@@ -4393,6 +4400,8 @@ namespace graphene { namespace net { namespace detail {
 
         ilog( "generating new private key for this node" );
         _node_configuration.private_key = fc::ecc::private_key::generate();
+          
+        save_node_configuration();
       }
 
       _node_public_key = _node_configuration.private_key.get_public_key().serialize();
