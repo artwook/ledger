@@ -769,17 +769,18 @@ vector<balance_object> database_api_impl::get_asset_balance_objects( asset_id_ty
     {
         try
         {
-            const auto& bal_idx = _db.get_index_type<balance_index>();
-            const auto& by_id_idx = bal_idx.indices().get<by_id>();
+            const auto& bal_idx = _db.get_index_type<balance_index>().indices();
             
             vector<balance_object> result;
             
-            auto itr = by_id_idx.lower_bound( object_id_type() );
-            while( itr != by_id_idx.end() && itr->asset_type() == asset_id )
+            for (const balance_object& balance : bal_idx)
             {
-                result.push_back( *itr );
-                ++itr;
+                if (balance.asset_type() == asset_id)
+                {
+                    result.push_back( balance );
+                }
             }
+            
             return result;
         }
         FC_CAPTURE_AND_RETHROW( (asset_id) )
