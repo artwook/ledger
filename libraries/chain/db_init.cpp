@@ -743,9 +743,9 @@ void database::init_genesis(const genesis_state_type& genesis_state)
         create<asset_object>([&](asset_object& a) {
             a.symbol = "eq-acme";
             a.options.description = "Company equity issued by acme-dssz.";
-            a.precision = 100;
+            a.precision = 4;
             a.issuer = get_account_id("acme-dssz");
-            a.options.max_supply = 100000000;
+            a.options.max_supply = 10000000000;
             a.options.flags = witness_fed_asset;
             a.options.issuer_permissions = charge_market_fee | override_authority | white_list | transfer_restricted | disable_confidential;
             a.dynamic_asset_data_id = dynamic_data_id;
@@ -768,9 +768,9 @@ void database::init_genesis(const genesis_state_type& genesis_state)
         create<asset_object>([&](asset_object& a) {
             a.symbol = "eq-macrosoft";
             a.options.description = "Company equity issued by macrosoft-dssz.";
-            a.precision = 100;
+            a.precision = 4;
             a.issuer = get_account_id("macrosoft-dssz");
-            a.options.max_supply = 100000000;
+            a.options.max_supply = 10000000000;
             a.options.flags = witness_fed_asset;
             a.options.issuer_permissions = charge_market_fee | override_authority | white_list | transfer_restricted | disable_confidential;
             a.dynamic_asset_data_id = dynamic_data_id;
@@ -793,9 +793,9 @@ void database::init_genesis(const genesis_state_type& genesis_state)
         create<asset_object>([&](asset_object& a) {
             a.symbol = "eq-gaagle";
             a.options.description = "Company equity issued by gaagle-xnhz.";
-            a.precision = 100;
+            a.precision = 4;
             a.issuer = get_account_id("gaagle-xnhz");
-            a.options.max_supply = 100000000;
+            a.options.max_supply = 10000000000;
             a.options.flags = witness_fed_asset;
             a.options.issuer_permissions = charge_market_fee | override_authority | white_list | transfer_restricted | disable_confidential;
             a.dynamic_asset_data_id = dynamic_data_id;
@@ -818,9 +818,9 @@ void database::init_genesis(const genesis_state_type& genesis_state)
         create<asset_object>([&](asset_object& a) {
             a.symbol = "eq-dami";
             a.options.description = "Company equity issued by dami-xnhz.";
-            a.precision = 100;
+            a.precision = 4;
             a.issuer = get_account_id("dami-xnhz");
-            a.options.max_supply = 100000000;
+            a.options.max_supply = 10000000000;
             a.options.flags = witness_fed_asset;
             a.options.issuer_permissions = charge_market_fee | override_authority | white_list | transfer_restricted | disable_confidential;
             a.dynamic_asset_data_id = dynamic_data_id;

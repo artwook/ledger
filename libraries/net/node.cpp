@@ -237,7 +237,7 @@ namespace graphene { namespace net {
        */
       fc::ecc::private_key private_key;
         
-      bool accept_public_peers;
+      bool only_accept_private_peers;
         
       std::vector< fc::ecc::public_key > accepted_peer_keys;
     };
@@ -248,7 +248,7 @@ FC_REFLECT(graphene::net::detail::node_configuration, (listen_endpoint)
                                                  (accept_incoming_connections)
                                                  (wait_if_endpoint_is_busy)
                                                  (private_key)
-                                                 (accept_public_peers)
+                                                 (only_accept_private_peers)
                                                  (accepted_peer_keys)
            );
 

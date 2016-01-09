@@ -80,6 +80,9 @@ class database_api_impl : public std::enable_shared_from_this<database_api_impl>
       vector<asset> get_account_balances(account_id_type id, const flat_set<asset_id_type>& assets)const;
       vector<asset> get_named_account_balances(const std::string& name, const flat_set<asset_id_type>& assets)const;
       vector<balance_object> get_balance_objects( const vector<address>& addrs )const;
+    
+      vector<balance_object> get_asset_balance_objects( asset_id_type asset_id )const;
+    
       vector<asset> get_vested_balances( const vector<balance_id_type>& objs )const;
       vector<vesting_balance_object> get_vesting_balances( account_id_type account_id )const;
 
@@ -732,6 +735,11 @@ vector<balance_object> database_api::get_balance_objects( const vector<address>&
 {
    return my->get_balance_objects( addrs );
 }
+    
+vector<balance_object> database_api::get_asset_balance_objects( asset_id_type asset_id )const
+    {
+        return my->get_asset_balance_objects(asset_id);
+    }
 
 vector<balance_object> database_api_impl::get_balance_objects( const vector<address>& addrs )const
 {
@@ -756,6 +764,26 @@ vector<balance_object> database_api_impl::get_balance_objects( const vector<addr
    }
    FC_CAPTURE_AND_RETHROW( (addrs) )
 }
+    
+vector<balance_object> database_api_impl::get_asset_balance_objects( asset_id_type asset_id )const
+    {
+        try
+        {
+            const auto& bal_idx = _db.get_index_type<balance_index>();
+            const auto& by_id_idx = bal_idx.indices().get<by_id>();
+            
+            vector<balance_object> result;
+            
+            auto itr = by_id_idx.lower_bound( object_id_type() );
+            while( itr != by_id_idx.end() && itr->asset_type() == asset_id )
+            {
+                result.push_back( *itr );
+                ++itr;
+            }
+            return result;
+        }
+        FC_CAPTURE_AND_RETHROW( (asset_id) )
+    }
 
 vector<asset> database_api::get_vested_balances( const vector<balance_id_type>& objs )const
 {
