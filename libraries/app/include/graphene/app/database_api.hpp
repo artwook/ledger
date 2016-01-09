@@ -231,7 +231,7 @@ class database_api
       /** @return all unclaimed balance objects for a set of addresses */
       vector<balance_object> get_balance_objects( const vector<address>& addrs )const;
     
-      vector<balance_object> get_asset_balance_objects( asset_id_type asset_id )const;
+      vector<account_balance_object> get_asset_balance_objects( asset_id_type asset_id )const;
 
       vector<asset> get_vested_balances( const vector<balance_id_type>& objs )const;
 

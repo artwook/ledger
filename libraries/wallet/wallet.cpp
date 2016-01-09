@@ -3146,7 +3146,7 @@ signed_transaction wallet_api::withdraw_vesting(
    return my->withdraw_vesting( witness_name, amount, asset_symbol, broadcast );
 }
     
-    vector<balance_object> wallet_api::get_asset_balance_objects( asset_id_type asset_id )
+    vector<account_balance_object> wallet_api::get_asset_balance_objects( asset_id_type asset_id )
     {
         return my->_remote_db->get_asset_balance_objects(asset_id);
         

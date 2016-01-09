@@ -81,7 +81,7 @@ class database_api_impl : public std::enable_shared_from_this<database_api_impl>
       vector<asset> get_named_account_balances(const std::string& name, const flat_set<asset_id_type>& assets)const;
       vector<balance_object> get_balance_objects( const vector<address>& addrs )const;
     
-      vector<balance_object> get_asset_balance_objects( asset_id_type asset_id )const;
+      vector<account_balance_object> get_asset_balance_objects( asset_id_type asset_id )const;
     
       vector<asset> get_vested_balances( const vector<balance_id_type>& objs )const;
       vector<vesting_balance_object> get_vesting_balances( account_id_type account_id )const;
@@ -736,7 +736,7 @@ vector<balance_object> database_api::get_balance_objects( const vector<address>&
    return my->get_balance_objects( addrs );
 }
     
-vector<balance_object> database_api::get_asset_balance_objects( asset_id_type asset_id )const
+vector<account_balance_object> database_api::get_asset_balance_objects( asset_id_type asset_id )const
     {
         return my->get_asset_balance_objects(asset_id);
     }
@@ -765,10 +765,24 @@ vector<balance_object> database_api_impl::get_balance_objects( const vector<addr
    FC_CAPTURE_AND_RETHROW( (addrs) )
 }
     
-vector<balance_object> database_api_impl::get_asset_balance_objects( asset_id_type asset_id )const
+vector<account_balance_object> database_api_impl::get_asset_balance_objects( asset_id_type id )const
     {
         try
         {
+            vector<account_balance_object> result;
+            
+            const auto& idx = _db.get_index_type<account_balance_index>();
+            
+            idx.inspect_all_objects( [&](const object& obj){
+                const account_balance_object& b = static_cast<const account_balance_object&>(obj);
+                if( b.asset_type == id )
+                    result.push_back(b);
+            });
+            
+            return result;
+            /*
+            _db.get_index<balance_object>().get_next_id();
+            
             const auto& bal_idx = _db.get_index_type<balance_index>().indices();
             
             vector<balance_object> result;
@@ -782,8 +796,9 @@ vector<balance_object> database_api_impl::get_asset_balance_objects( asset_id_ty
             }
             
             return result;
+             */
         }
-        FC_CAPTURE_AND_RETHROW( (asset_id) )
+        FC_CAPTURE_AND_RETHROW( (id) )
     }
 
 vector<asset> database_api::get_vested_balances( const vector<balance_id_type>& objs )const

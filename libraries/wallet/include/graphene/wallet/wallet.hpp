@@ -1219,7 +1219,7 @@ class wallet_api
        */
       vector< vesting_balance_object_with_info > get_vesting_balances( string account_name );
     
-      vector<balance_object> get_asset_balance_objects( asset_id_type asset_id );
+      vector<account_balance_object> get_asset_balance_objects( asset_id_type asset_id );
     
     vector<balance_object> get_balance_objects( const vector<address>& addrs );
 
