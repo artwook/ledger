@@ -1,22 +1,25 @@
 /*
  * Copyright (c) 2015 Cryptonomex, Inc., and contributors.
- * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * The MIT License
  *
- * 1. Any modified source or binaries are used only with the BitShares network.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * 2. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
- * 3. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
- * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 #include <graphene/app/api.hpp>
 #include <graphene/app/api_access.hpp>
@@ -177,7 +180,9 @@ namespace detail {
          if( !_options->count("rpc-endpoint") )
             return;
 
-         _websocket_server = std::make_shared<fc::http::websocket_server>();
+         bool enable_deflate_compression = _options->count("enable-permessage-deflate") != 0;
+
+         _websocket_server = std::make_shared<fc::http::websocket_server>(enable_deflate_compression);
 
          _websocket_server->on_connection([&]( const fc::http::websocket_connection_ptr& c ){
             auto wsc = std::make_shared<fc::rpc::websocket_api_connection>(*c);
@@ -204,7 +209,8 @@ namespace detail {
          }
 
          string password = _options->count("server-pem-password") ? _options->at("server-pem-password").as<string>() : "";
-         _websocket_tls_server = std::make_shared<fc::http::websocket_tls_server>( _options->at("server-pem").as<string>(), password );
+         bool enable_deflate_compression = _options->count("enable-permessage-deflate") != 0;
+         _websocket_tls_server = std::make_shared<fc::http::websocket_tls_server>( _options->at("server-pem").as<string>(), password, enable_deflate_compression );
 
          _websocket_tls_server->on_connection([&]( const fc::http::websocket_connection_ptr& c ){
             auto wsc = std::make_shared<fc::rpc::websocket_api_connection>(*c);
@@ -328,9 +334,27 @@ namespace detail {
                fc::read_file_contents( _data_dir / "db_version", version_str );
                return (version_str != GRAPHENE_CURRENT_DB_VERSION);
             };
-            if( !is_new() && is_outdated() ) 
+
+            bool need_reindex = (!is_new() && is_outdated());
+            std::string reindex_reason = "version upgrade";
+
+            if( !need_reindex )
             {
-               ilog("Replaying blockchain due to version upgrade");
+               try
+               {
+                  _chain_db->open(_data_dir / "blockchain", initial_state);
+               }
+               catch( const fc::exception& e )
+               {
+                  ilog( "caught exception ${e} in open()", ("e", e.to_detail_string()) );
+                  need_reindex = true;
+                  reindex_reason = "exception in open()";
+               }
+            }
+
+            if( need_reindex )
+            {
+               ilog("Replaying blockchain due to ${reason}", ("reason", reindex_reason) );
 
                fc::remove_all( _data_dir / "db_version" );
                _chain_db->reindex(_data_dir / "blockchain", initial_state());
@@ -346,8 +370,6 @@ namespace detail {
                   db_version.write( version_string.c_str(), version_string.size() );
                   db_version.close();
                }
-            } else {
-              _chain_db->open(_data_dir / "blockchain", initial_state);
             }
          } else {
             wlog("Detected unclean shutdown. Replaying blockchain...");
@@ -386,6 +408,7 @@ namespace detail {
             wild_access.allowed_apis.push_back( "database_api" );
             wild_access.allowed_apis.push_back( "network_broadcast_api" );
             wild_access.allowed_apis.push_back( "history_api" );
+            wild_access.allowed_apis.push_back( "crypto_api" );
             _apiaccess.permission_map["*"] = wild_access;
          }
 
@@ -880,6 +903,8 @@ void application::set_program_options(boost::program_options::options_descriptio
          ("checkpoint,c", bpo::value<vector<string>>()->composing(), "Pairs of [BLOCK_NUM,BLOCK_ID] that should be enforced as checkpoints.")
          ("rpc-endpoint", bpo::value<string>()->implicit_value("127.0.0.1:8090"), "Endpoint for websocket RPC to listen on")
          ("rpc-tls-endpoint", bpo::value<string>()->implicit_value("127.0.0.1:8089"), "Endpoint for TLS websocket RPC to listen on")
+         ("enable-permessage-deflate", "Enable support for per-message deflate compression in the websocket servers "
+                                       "(--rpc-endpoint and --rpc-tls-endpoint), disabled by default")
          ("server-pem,p", bpo::value<string>()->implicit_value("server.pem"), "The TLS certificate file for this server")
          ("server-pem-password,P", bpo::value<string>()->implicit_value(""), "Password for this certificate")
          ("genesis-json", bpo::value<boost::filesystem::path>(), "File to read Genesis State from")
