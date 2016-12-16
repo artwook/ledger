@@ -29,6 +29,12 @@ BitShares OS X Build Instructions
    brew install google-perftools
    ```
 
+   Install LibTool
+
+   ```
+   brew install libtool
+   ```
+
 7. Clone the ledger repository:
    ```
    git clone https://github.com/artwook/ledger.git
