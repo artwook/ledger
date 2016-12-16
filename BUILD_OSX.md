@@ -44,5 +44,5 @@ BitShares OS X Build Instructions
    
    In OSX 10.11(EI Capitan) and newer, you will be prompted with warning when force linking openssl. In this case, if openssl are installed using brew, cmake using 
    ```
-   cmake -DOPENSSL_ROOT_DIR=/usr/local/ssl -DOPENSSL_LIBRARIES=/usr/local/ssl/lib .
+   cmake -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl -DOPENSSL_LIBRARIES=/usr/local/opt/openssl/lib .
    ```
