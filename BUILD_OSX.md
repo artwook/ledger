@@ -52,3 +52,8 @@ BitShares OS X Build Instructions
    ```
    cmake -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl -DOPENSSL_LIBRARIES=/usr/local/opt/openssl/lib .
    ```
+   
+   For Developing, Sugguest to enable CMake Definition of GRAPHENE_DISABLE_UNITY_BUILD to disable unity build, it will help with text searching in Xcode. 
+   ```
+   cmake -G Xcode -DGRAPHENE_DISABLE_UNITY_BUILD=true DOPENSSL_ROOT_DIR=/usr/local/opt/openssl -DOPENSSL_LIBRARIES=/usr/local/opt/openssl/lib .
+   ```
