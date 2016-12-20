@@ -135,6 +135,49 @@ namespace detail {
             }
          }
 
+         if( _options->count("seed-nodes") )
+         {
+            auto seeds_str = _options->at("seed-nodes").as<string>();
+            auto seeds = fc::json::from_string(seeds_str).as<vector<string>>();
+            for( const string& endpoint_string : seeds )
+            {
+               try {
+                  std::vector<fc::ip::endpoint> endpoints = resolve_string_to_ip_endpoints(endpoint_string);
+                  for (const fc::ip::endpoint& endpoint : endpoints)
+                  {
+                     ilog("Adding seed node ${endpoint}", ("endpoint", endpoint));
+                     _p2p_network->add_node(endpoint);
+                  }
+               } catch( const fc::exception& e ) {
+                  wlog( "caught exception ${e} while adding seed node ${endpoint}",
+                       ("e", e.to_detail_string())("endpoint", endpoint_string) );
+               }
+            }
+         }
+         else
+         {
+            vector<string> seeds = {
+               "art1.artwook.com:2776",   // art1
+               "art2.artwook.com:2776",   // art2
+               "art3.artwook.com:2776"    // art3
+            };
+            for( const string& endpoint_string : seeds )
+            {
+               try {
+                  std::vector<fc::ip::endpoint> endpoints = resolve_string_to_ip_endpoints(endpoint_string);
+                  for (const fc::ip::endpoint& endpoint : endpoints)
+                  {
+                     ilog("Adding seed node ${endpoint}", ("endpoint", endpoint));
+                     _p2p_network->add_node(endpoint);
+                  }
+               } catch( const fc::exception& e ) {
+                  wlog( "caught exception ${e} while adding seed node ${endpoint}",
+                       ("e", e.to_detail_string())("endpoint", endpoint_string) );
+               }
+            }
+         }
+
+
          if( _options->count("p2p-endpoint") )
             _p2p_network->listen_on_endpoint(fc::ip::endpoint::from_string(_options->at("p2p-endpoint").as<string>()), true);
          else
