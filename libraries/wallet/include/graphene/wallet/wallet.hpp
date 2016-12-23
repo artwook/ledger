@@ -1612,6 +1612,7 @@ FC_API( graphene::wallet::wallet_api,
         (import_balance)
         (suggest_brain_key)
         (register_account)
+        (register_escorted_account)
         (upgrade_account)
         (create_account_with_brain_key)
         (sell_asset)
