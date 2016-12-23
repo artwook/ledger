@@ -652,6 +652,52 @@ class wallet_api
                                           string  referrer_account,
                                           uint32_t referrer_percent,
                                           bool broadcast = false);
+    
+    /** Registers a third party's escorted account on the blockckain.
+     *
+     * For example, we have user account alice and a control account sfactor.
+     * A typical user alice onchain account setup will be like this:
+     * alice:
+     * active permission: alice's pubkey (w:1), alice.sfactor(w:1)
+     * owner permission: alice's pubkey (w:1), alice.sfactor(w:1)
+     * 
+     * With this setup, we are able to achieve these:
+     * When user forgets wallet password and loses access, alice.sfactor is able to reset ailce owner key
+     * When user needs to do onchain operation, alice signs her operation and requests alice.sfactor's permission. 
+     * While sfactor provider is able to give user options to determine when to reject user operation if suspicious
+     * conditionally auto sign (eg, amount less than 100, auto sign, amount over 100, needs alternative verification)
+     * needs alternative authentication before sign (eg, SMS verification code, Google Authenticor)
+     * usage: register_escorted_account ACCOUNT_NAME OWNER_AUTHORITIES ACTIVE_AUTHORITIES MEMO_KEY REGISTRAR REFERRER REFERRER_PERCENT BROADCAST
+     * OWNER_AUTHORITIES [JSON Object]: structure like this { "weight_threshold": 1, "account_auths": [["1.2.37",1]], "key_auths": [["AWK8dmH7xa4NBEcPcmuD9nnH3h84CXb29MrKBwbaWTS9nFFsmTvvs",1]], "address_auths": []}
+     * ACTIVE_AUTHORITIES [JSON Object]: structure like this { "weight_threshold": 1, "account_auths": [["1.2.37",1]], "key_auths": [["AWK8dmH7xa4NBEcPcmuD9nnH3h84CXb29MrKBwbaWTS9nFFsmTvvs",1]], "address_auths": []}
+     *
+     * @see register_account()
+     *
+     * @param name the name of the account, must be unique on the blockchain.  Shorter names
+     *             are more expensive to register; the rules are still in flux, but in general
+     *             names of more than 8 characters with at least one digit will be cheap.
+     * @param owner the owner authority for the new account
+     * @param active the active authority for the new account
+     * @param memo_key the memo key for the new account
+     * @param registrar_account the account which will pay the fee to register the user
+     * @param referrer_account the account who is acting as a referrer, and may receive a
+     *                         portion of the user's transaction fees.  This can be the
+     *                         same as the registrar_account if there is no referrer.
+     * @param referrer_percent the percentage (0 - 100) of the new user's transaction fees
+     *                         not claimed by the blockchain that will be distributed to the
+     *                         referrer; the rest will be sent to the registrar.  Will be
+     *                         multiplied by GRAPHENE_1_PERCENT when constructing the transaction.
+     * @param broadcast true to broadcast the transaction on the network
+     * @returns the signed transaction registering the account
+     */
+    signed_transaction register_escorted_account(string name,
+                                        authority owner,
+                                        authority active,
+                                        public_key_type memo_key,
+                                        string  registrar_account,
+                                        string  referrer_account,
+                                        uint32_t referrer_percent,
+                                        bool broadcast = false);
 
       /**
        *  Upgrades an account to prime status.

@@ -979,6 +979,77 @@ public:
          _remote_net_broadcast->broadcast_transaction( tx );
       return tx;
    } FC_CAPTURE_AND_RETHROW( (name)(owner)(active)(registrar_account)(referrer_account)(referrer_percent)(broadcast) ) }
+    
+    signed_transaction register_escorted_account(string name,
+                                        authority owner,
+                                        authority active,
+                                        public_key_type memo_key,
+                                        string  registrar_account,
+                                        string  referrer_account,
+                                        uint32_t referrer_percent,
+                                        bool broadcast = false)
+    { try {
+        FC_ASSERT( !self.is_locked() );
+        FC_ASSERT( is_valid_name(name) );
+        account_create_operation account_create_op;
+        
+        // #449 referrer_percent is on 0-100 scale, if user has larger
+        // number it means their script is using GRAPHENE_100_PERCENT scale
+        // instead of 0-100 scale.
+        FC_ASSERT( referrer_percent <= 100 );
+        // TODO:  process when pay_from_account is ID
+        
+        account_object registrar_account_object =
+        this->get_account( registrar_account );
+        FC_ASSERT( registrar_account_object.is_lifetime_member() );
+        
+        account_id_type registrar_account_id = registrar_account_object.id;
+        
+        account_object referrer_account_object =
+        this->get_account( referrer_account );
+        account_create_op.referrer = referrer_account_object.id;
+        account_create_op.referrer_percent = uint16_t( referrer_percent * GRAPHENE_1_PERCENT );
+        
+        account_create_op.registrar = registrar_account_id;
+        account_create_op.name = name;
+        account_create_op.owner = owner;
+        account_create_op.active = active;
+        // auto active_keys = active.get_keys();
+        // FC_ASSERT( active_keys.size() > 0 );
+        account_create_op.options.memo_key = memo_key;
+        
+        signed_transaction tx;
+        
+        tx.operations.push_back( account_create_op );
+        
+        auto current_fees = _remote_db->get_global_properties().parameters.current_fees;
+        set_operation_fees( tx, current_fees );
+        
+        vector<public_key_type> paying_keys = registrar_account_object.active.get_keys();
+        
+        auto dyn_props = get_dynamic_global_properties();
+        tx.set_reference_block( dyn_props.head_block_id );
+        tx.set_expiration( dyn_props.time + fc::seconds(30) );
+        tx.validate();
+        
+        for( public_key_type& key : paying_keys )
+        {
+            auto it = _keys.find(key);
+            if( it != _keys.end() )
+            {
+                fc::optional< fc::ecc::private_key > privkey = wif_to_key( it->second );
+                if( !privkey.valid() )
+                {
+                    FC_ASSERT( false, "Malformed private key in _keys" );
+                }
+                tx.sign( *privkey, _chain_id );
+            }
+        }
+        
+        if( broadcast )
+            _remote_net_broadcast->broadcast_transaction( tx );
+        return tx;
+    } FC_CAPTURE_AND_RETHROW( (name)(owner)(active)(registrar_account)(referrer_account)(referrer_percent)(broadcast) ) }
 
 
    signed_transaction upgrade_account(string name, bool broadcast)
@@ -3111,6 +3182,19 @@ signed_transaction wallet_api::register_account(string name,
 {
    return my->register_account( name, owner_pubkey, active_pubkey, registrar_account, referrer_account, referrer_percent, broadcast );
 }
+    
+signed_transaction wallet_api::register_escorted_account(string name,
+                                                    authority owner_authority,
+                                                    authority active_authority,
+                                                    public_key_type memo_key,
+                                                    string  registrar_account,
+                                                    string  referrer_account,
+                                                    uint32_t referrer_percent,
+                                                    bool broadcast)
+{
+    return my->register_escorted_account( name, owner_authority, active_authority, memo_key, registrar_account, referrer_account, referrer_percent, broadcast );
+}
+    
 signed_transaction wallet_api::create_account_with_brain_key(string brain_key, string account_name,
                                                              string registrar_account, string referrer_account,
                                                              bool broadcast /* = false */)
@@ -3477,6 +3561,21 @@ string wallet_api::gethelp(const string& method)const
       ss << "example: register_account \"newaccount\" \"CORE6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV\" \"CORE6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV\" \"1.3.11\" \"1.3.11\" 50 true\n";
       ss << "\n";
       ss << "Use this method to register an account for which you do not know the private keys.";
+   }
+   else if( method == "register_escorted_account" )
+   {
+       ss << "usage: register_escorted_account ACCOUNT_NAME OWNER_AUTHORITIES ACTIVE_AUTHORITIES MEMO_KEY REGISTRAR REFERRER REFERRER_PERCENT BROADCAST\n\n";
+       ss << "OWNER_AUTHORITIES [JSON Object]: structure like this { \"weight_threshold\": 1, \"account_auths\": [[\"1.2.37\",1]], \"key_auths\": [[\"AWK8dmH7xa4NBEcPcmuD9nnH3h84CXb29MrKBwbaWTS9nFFsmTvvs\",1]], \"address_auths\": []}";
+       ss << "\n";
+       ss << "ACTIVE_AUTHORITIES [JSON Object]: structure like this { \"weight_threshold\": 1, \"account_auths\": [[\"1.2.37\",1]], \"key_auths\": [[\"AWK8dmH7xa4NBEcPcmuD9nnH3h84CXb29MrKBwbaWTS9nFFsmTvvs\",1]], \"address_auths\": []}";
+       ss << "\n";
+       ss << "NOTE1: account_auth only accept account_id not account name.";
+       ss << "\n";
+       ss << "NOTE2: Remember to give the memo key, which is often same with active key form active authority.";
+       ss << "\n";
+       ss << "example: register_escorted_account \"newaccount\" {\"weight_threshold\":1,\"account_auths\":[[\"1.2.37\",1]], \"key_auths\":[[\"AWK8dmH7xa4NBEcPcmuD9nnH3h84CXb29MrKBwbaWTS9nFFsmTvvs\",1]],\"address_auths\":[]} {\"weight_threshold\":1,\"account_auths\":[[\"1.2.37\",1]],\"key_auths\":[[\"AWK8dmH7xa4NBEcPcmuD9nnH3h84CXb29MrKBwbaWTS9nFFsmTvvs\",1]],\"address_auths\":[]} \"AWK8dmH7xa4NBEcPcmuD9nnH3h84CXb29MrKBwbaWTS9nFFsmTvvs\" \"1.3.11\" \"1.3.11\" 50 true\n";
+       ss << "\n";
+       ss << "Use this method to register an escoreted account for which you do not know the private keys.";
    }
    else if( method == "create_asset" )
    {
