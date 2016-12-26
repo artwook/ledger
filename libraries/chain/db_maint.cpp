@@ -102,7 +102,7 @@ void database::update_worker_votes()
 {
    auto& idx = get_index_type<worker_index>();
    auto itr = idx.indices().get<by_account>().begin();
-   bool allow_negative_votes = (head_block_time() < HARDFORK_607_TIME);
+   bool allow_negative_votes = false;
    while( itr != idx.indices().get<by_account>().end() )
    {
       modify( *itr, [&]( worker_object& obj ){
@@ -193,34 +193,6 @@ void database::update_active_witnesses()
    // Update witness authority
    modify( get(GRAPHENE_WITNESS_ACCOUNT), [&]( account_object& a )
    {
-      if( head_block_time() < HARDFORK_533_TIME )
-      {
-         uint64_t total_votes = 0;
-         map<account_id_type, uint64_t> weights;
-         a.active.weight_threshold = 0;
-         a.active.clear();
-
-         for( const witness_object& wit : wits )
-         {
-            weights.emplace(wit.witness_account, _vote_tally_buffer[wit.vote_id]);
-            total_votes += _vote_tally_buffer[wit.vote_id];
-         }
-
-         // total_votes is 64 bits. Subtract the number of leading low bits from 64 to get the number of useful bits,
-         // then I want to keep the most significant 16 bits of what's left.
-         int8_t bits_to_drop = std::max(int(boost::multiprecision::detail::find_msb(total_votes)) - 15, 0);
-         for( const auto& weight : weights )
-         {
-            // Ensure that everyone has at least one vote. Zero weights aren't allowed.
-            uint16_t votes = std::max((weight.second >> bits_to_drop), uint64_t(1) );
-            a.active.account_auths[weight.first] += votes;
-            a.active.weight_threshold += votes;
-         }
-
-         a.active.weight_threshold /= 2;
-         a.active.weight_threshold += 1;
-      }
-      else
       {
          vote_counter vc;
          for( const witness_object& wit : wits )
@@ -270,34 +242,6 @@ void database::update_active_committee_members()
    {
       modify(get(GRAPHENE_COMMITTEE_ACCOUNT), [&](account_object& a)
       {
-         if( head_block_time() < HARDFORK_533_TIME )
-         {
-            uint64_t total_votes = 0;
-            map<account_id_type, uint64_t> weights;
-            a.active.weight_threshold = 0;
-            a.active.clear();
-
-            for( const committee_member_object& del : committee_members )
-            {
-               weights.emplace(del.committee_member_account, _vote_tally_buffer[del.vote_id]);
-               total_votes += _vote_tally_buffer[del.vote_id];
-            }
-
-            // total_votes is 64 bits. Subtract the number of leading low bits from 64 to get the number of useful bits,
-            // then I want to keep the most significant 16 bits of what's left.
-            int8_t bits_to_drop = std::max(int(boost::multiprecision::detail::find_msb(total_votes)) - 15, 0);
-            for( const auto& weight : weights )
-            {
-               // Ensure that everyone has at least one vote. Zero weights aren't allowed.
-               uint16_t votes = std::max((weight.second >> bits_to_drop), uint64_t(1) );
-               a.active.account_auths[weight.first] += votes;
-               a.active.weight_threshold += votes;
-            }
-
-            a.active.weight_threshold /= 2;
-            a.active.weight_threshold += 1;
-         }
-         else
          {
             vote_counter vc;
             for( const committee_member_object& cm : committee_members )
@@ -864,8 +808,8 @@ void database::perform_chain_maintenance(const signed_block& next_block, const g
 
    const dynamic_global_property_object& dgpo = get_dynamic_global_properties();
 
-   if( (dgpo.next_maintenance_time < HARDFORK_613_TIME) && (next_maintenance_time >= HARDFORK_613_TIME) )
-      deprecate_annual_members(*this);
+   //if( (dgpo.next_maintenance_time < HARDFORK_613_TIME) && (next_maintenance_time >= HARDFORK_613_TIME) )
+   //   deprecate_annual_members(*this);
 
    modify(dgpo, [next_maintenance_time](dynamic_global_property_object& d) {
       d.next_maintenance_time = next_maintenance_time;
