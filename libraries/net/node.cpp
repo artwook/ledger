@@ -4441,6 +4441,8 @@ namespace graphene { namespace net { namespace detail {
 
         ilog( "generating new private key for this node" );
         _node_configuration.private_key = fc::ecc::private_key::generate();
+          
+        _node_configuration.only_accept_private_peers = false;
       }
 
       _node_public_key = _node_configuration.private_key.get_public_key().serialize();
