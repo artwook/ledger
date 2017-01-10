@@ -36,11 +36,20 @@ using namespace graphene::chain;
 
 int main(int argc, char** argv)
 {
-   // grab 0 or more whitespace-delimited PTS addresses from stdin
-   std::string s;
-   while( std::cin >> s )
+   if ( argc >= 2 )
    {
+      std::string s;
+      s = argv[1];
       std::cout << std::string( address( public_key_type( s ) ) ) << std::endl;
+   } else
+   {
+      // grab 0 or more whitespace-delimited PTS addresses from stdin
+      std::string s;
+      while( std::cin >> s )
+      {
+         std::cout << std::string( address( public_key_type( s ) ) ) << std::endl;
+      }
    }
+   
    return 0;
 }
