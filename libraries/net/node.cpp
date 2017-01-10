@@ -239,6 +239,10 @@ namespace graphene { namespace net {
        * the future to support some notion of trusted peers.
        */
       fc::ecc::private_key private_key;
+        
+      bool only_accept_private_peers;
+        
+      std::vector< fc::ecc::public_key > accepted_peer_keys;
     };
 
 
@@ -246,7 +250,9 @@ namespace graphene { namespace net {
 FC_REFLECT(graphene::net::detail::node_configuration, (listen_endpoint)
                                                  (accept_incoming_connections)
                                                  (wait_if_endpoint_is_busy)
-                                                 (private_key));
+                                                 (private_key)
+                                                 (only_accept_private_peers)
+                                                 (accepted_peer_keys));
 
 namespace graphene { namespace net { namespace detail {
 
@@ -1936,6 +1942,38 @@ namespace graphene { namespace net { namespace detail {
           disconnect_from_peer( originating_peer, "Invalid signature in hello message" );
           return;
         }
+          
+        if (_node_configuration.only_accept_private_peers)
+        {
+            bool pub_key_in_accepted_peers = false;
+            
+            for ( auto pub_key : _node_configuration.accepted_peer_keys )
+            {
+                if (hello_message_received.node_public_key == pub_key.serialize())
+                {
+                    pub_key_in_accepted_peers = true;
+                    break;
+                }
+            }
+            
+            if (! pub_key_in_accepted_peers)
+            {
+                wlog("Peer node public key is not in accepted keys, the peer is ${peer}", ("peer", originating_peer->get_remote_endpoint()));
+                std::string rejection_message("Invalid public key in hello message, not in accepted keys");
+                connection_rejected_message connection_rejected(_user_agent_string, core_protocol_version,
+                                                                originating_peer->get_socket().remote_endpoint(),
+                                                                rejection_reason_code::invalid_hello_message,
+                                                                rejection_message);
+                
+                originating_peer->their_state = peer_connection::their_connection_state::connection_rejected;
+                originating_peer->send_message( message(connection_rejected ) );
+                // for this type of message, we're immediately disconnecting this peer
+                disconnect_from_peer( originating_peer, "Invalid public key in hello message, not in accepted keys" );
+                return;
+            }
+                
+        }
+          
         if (hello_message_received.chain_id != _chain_id)
         {
           wlog("Received hello message from peer on a different chain: ${message}", ("message", hello_message_received));
@@ -4403,6 +4441,8 @@ namespace graphene { namespace net { namespace detail {
 
         ilog( "generating new private key for this node" );
         _node_configuration.private_key = fc::ecc::private_key::generate();
+          
+        _node_configuration.only_accept_private_peers = false;
       }
 
       _node_public_key = _node_configuration.private_key.get_public_key().serialize();
