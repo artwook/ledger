@@ -119,6 +119,11 @@ class database_api_impl : public std::enable_shared_from_this<database_api_impl>
       vector<optional<committee_member_object>> get_committee_members(const vector<committee_member_id_type>& committee_member_ids)const;
       fc::optional<committee_member_object> get_committee_member_by_account(account_id_type account)const;
       map<string, committee_member_id_type> lookup_committee_member_accounts(const string& lower_bound_name, uint32_t limit)const;
+   
+      // Asset managers
+      vector<optional<asset_manager_object>> get_asset_managers(const vector<asset_manager_id_type>& asset_manager_ids)const;
+      fc::optional<asset_manager_object> get_asset_manager_by_account(account_id_type account)const;
+      map<string, asset_manager_id_type> lookup_asset_manager_accounts(const string& lower_bound_name, uint32_t limit)const;
 
       // Votes
       vector<variant> lookup_vote_ids( const vector<vote_id_type>& votes )const;
@@ -1394,6 +1399,71 @@ map<string, committee_member_id_type> database_api_impl::lookup_committee_member
        ++end_iter;
    committee_members_by_account_name.erase(end_iter, committee_members_by_account_name.end());
    return committee_members_by_account_name;
+}
+   
+//////////////////////////////////////////////////////////////////////
+//                                                                  //
+// Asset managers                                                   //
+//                                                                  //
+//////////////////////////////////////////////////////////////////////
+   
+vector<optional<asset_manager_object>> database_api::get_asset_managers(const vector<asset_manager_id_type>& asset_manager_ids)const
+{
+   return my->get_asset_managers( asset_manager_ids );
+}
+   
+vector<optional<asset_manager_object>> database_api_impl::get_asset_managers(const vector<asset_manager_id_type>& asset_manager_ids)const
+{
+   vector<optional<asset_manager_object>> result; result.reserve(asset_manager_ids.size());
+   std::transform(asset_manager_ids.begin(), asset_manager_ids.end(), std::back_inserter(result),
+                  [this](asset_manager_id_type id) -> optional<asset_manager_object> {
+                     if(auto o = _db.find(id))
+                        return *o;
+                     return {};
+                  });
+   return result;
+}
+   
+fc::optional<asset_manager_object> database_api::get_asset_manager_by_account(account_id_type account)const
+{
+   return my->get_asset_manager_by_account( account );
+}
+   
+fc::optional<asset_manager_object> database_api_impl::get_asset_manager_by_account(account_id_type account) const
+{
+   const auto& idx = _db.get_index_type<asset_manager_index>().indices().get<by_account>();
+   auto itr = idx.find(account);
+   if( itr != idx.end() )
+      return *itr;
+   return {};
+}
+   
+map<string, asset_manager_id_type> database_api::lookup_asset_manager_accounts(const string& lower_bound_name, uint32_t limit)const
+{
+   return my->lookup_asset_manager_accounts( lower_bound_name, limit );
+}
+   
+map<string, asset_manager_id_type> database_api_impl::lookup_asset_manager_accounts(const string& lower_bound_name, uint32_t limit)const
+{
+   FC_ASSERT( limit <= 1000 );
+   const auto& asset_managers_by_id = _db.get_index_type<asset_manager_index>().indices().get<by_id>();
+      
+   // we want to order asset_managers by account name, but that name is in the account object
+   // so the asset_manager_index doesn't have a quick way to access it.
+   // get all the names and look them all up, sort them, then figure out what
+   // records to return.  This could be optimized, but we expect the
+   // number of committee_members to be few and the frequency of calls to be rare
+   std::map<std::string, asset_manager_id_type> asset_managers_by_account_name;
+   for (const asset_manager_object& asset_manager : asset_managers_by_id)
+      if (auto account_iter = _db.find(asset_manager.asset_manager_account))
+         if (account_iter->name >= lower_bound_name) // we can ignore anything below lower_bound_name
+            asset_managers_by_account_name.insert(std::make_pair(account_iter->name, asset_manager.id));
+      
+   auto end_iter = asset_managers_by_account_name.begin();
+   while (end_iter != asset_managers_by_account_name.end() && limit--)
+      ++end_iter;
+   asset_managers_by_account_name.erase(end_iter, asset_managers_by_account_name.end());
+   return asset_managers_by_account_name;
 }
 
 //////////////////////////////////////////////////////////////////////

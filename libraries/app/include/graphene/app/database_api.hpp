@@ -40,6 +40,7 @@
 #include <graphene/chain/proposal_object.hpp>
 #include <graphene/chain/worker_object.hpp>
 #include <graphene/chain/witness_object.hpp>
+#include <graphene/chain/asset_manager_object.hpp>
 
 #include <graphene/market_history/market_history_plugin.hpp>
 
@@ -471,7 +472,35 @@ class database_api
        * @return Map of committee_member names to corresponding IDs
        */
       map<string, committee_member_id_type> lookup_committee_member_accounts(const string& lower_bound_name, uint32_t limit)const;
-
+   
+   
+      ///////////////////////
+      // Asset Managers //
+      ///////////////////////
+      /**
+       * @brief Get a list of asset_manager_objects by ID
+       * @param asset_manager_ids IDs of the asset_managers to retrieve
+       * @return The asset_managers corresponding to the provided IDs
+       *
+       * This function has semantics identical to @ref get_objects
+       */
+      vector<optional<asset_manager_object>> get_asset_managers(const vector<asset_manager_id_type>& asset_manager_ids)const;
+   
+      /**
+       * @brief Get the asset_manager owned by a given account
+       * @param account The ID of the account whose asset_manager should be retrieved
+       * @return The asset_manager object, or null if the account does not have a asset_manager
+       */
+      fc::optional<asset_manager_object> get_asset_manager_by_account(account_id_type account)const;
+   
+   
+      /**
+       * @brief Get names and IDs for registered asset_managers
+       * @param lower_bound_name Lower bound of the first name to return
+       * @param limit Maximum number of results to return -- must not exceed 1000
+       * @return Map of asset_manager names to corresponding IDs
+       */
+      map<string, asset_manager_id_type> lookup_asset_manager_accounts(const string& lower_bound_name, uint32_t limit)const;
 
       /// WORKERS
 
@@ -636,6 +665,11 @@ FC_API(graphene::app::database_api,
    (get_committee_members)
    (get_committee_member_by_account)
    (lookup_committee_member_accounts)
+       
+   // Asset managers
+   (get_asset_managers)
+   (get_asset_manager_by_account)
+   (lookup_asset_manager_accounts)
 
    // workers
    (get_workers_by_account)

@@ -1439,6 +1439,26 @@ public:
 
       return sign_transaction( tx, broadcast );
    } FC_CAPTURE_AND_RETHROW( (owner_account)(broadcast) ) }
+   
+   
+   signed_transaction create_asset_manager(string owner_account, string url,
+                                              bool broadcast /* = false */)
+   { try {
+      
+      asset_manager_create_operation asset_manager_create_op;
+      asset_manager_create_op.asset_manager_account = get_account_id(owner_account);
+      asset_manager_create_op.url = url;
+      // TODO: Should also be checked in evaluation
+      if (_remote_db->get_asset_manager_by_account(asset_manager_create_op.asset_manager_account))
+         FC_THROW("Account ${owner_account} is already a asset_manager", ("owner_account", owner_account));
+      
+      signed_transaction tx;
+      tx.operations.push_back( asset_manager_create_op );
+      set_operation_fees( tx, _remote_db->get_global_properties().parameters.current_fees);
+      tx.validate();
+      
+      return sign_transaction( tx, broadcast );
+   } FC_CAPTURE_AND_RETHROW( (owner_account)(broadcast) ) }
 
    witness_object get_witness(string owner_account)
    {
@@ -1504,6 +1524,41 @@ public:
             catch (const fc::exception&)
             {
                FC_THROW("No account or committee_member named ${account}", ("account", owner_account));
+            }
+         }
+      }
+      FC_CAPTURE_AND_RETHROW( (owner_account) )
+   }
+   
+   asset_manager_object get_asset_manager(string owner_account)
+   {
+      try
+      {
+         fc::optional<asset_manager_id_type> asset_manager_id = maybe_id<asset_manager_id_type>(owner_account);
+         if (asset_manager_id)
+         {
+            std::vector<asset_manager_id_type> ids_to_get;
+            ids_to_get.push_back(*asset_manager_id);
+            std::vector<fc::optional<asset_manager_object>> asset_manager_objects = _remote_db->get_asset_managers(ids_to_get);
+            if (asset_manager_objects.front())
+               return *asset_manager_objects.front();
+            FC_THROW("No asset_manager is registered for id ${id}", ("id", owner_account));
+         }
+         else
+         {
+            // then maybe it's the owner account
+            try
+            {
+               account_id_type owner_account_id = get_account_id(owner_account);
+               fc::optional<asset_manager_object> asset_manager = _remote_db->get_asset_manager_by_account(owner_account_id);
+               if (asset_manager)
+                  return *asset_manager;
+               else
+                  FC_THROW("No asset_manager is registered for account ${account}", ("account", owner_account));
+            }
+            catch (const fc::exception&)
+            {
+               FC_THROW("No account or asset_manager named ${account}", ("account", owner_account));
             }
          }
       }
@@ -3301,6 +3356,12 @@ signed_transaction wallet_api::create_committee_member(string owner_account, str
    return my->create_committee_member(owner_account, url, broadcast);
 }
 
+signed_transaction wallet_api::create_asset_manager(string owner_account, string url,
+                                                          bool broadcast /* = false */)
+{
+   return my->create_asset_manager(owner_account, url, broadcast);
+}
+
 map<string,witness_id_type> wallet_api::list_witnesses(const string& lowerbound, uint32_t limit)
 {
    return my->_remote_db->lookup_witness_accounts(lowerbound, limit);
@@ -3309,6 +3370,11 @@ map<string,witness_id_type> wallet_api::list_witnesses(const string& lowerbound,
 map<string,committee_member_id_type> wallet_api::list_committee_members(const string& lowerbound, uint32_t limit)
 {
    return my->_remote_db->lookup_committee_member_accounts(lowerbound, limit);
+}
+   
+map<string,asset_manager_id_type> wallet_api::list_asset_managers(const string& lowerbound, uint32_t limit)
+{
+   return my->_remote_db->lookup_asset_manager_accounts(lowerbound, limit);
 }
 
 witness_object wallet_api::get_witness(string owner_account)
@@ -3319,6 +3385,11 @@ witness_object wallet_api::get_witness(string owner_account)
 committee_member_object wallet_api::get_committee_member(string owner_account)
 {
    return my->get_committee_member(owner_account);
+}
+   
+asset_manager_object wallet_api::get_asset_manager(string owner_account)
+{
+   return my->get_asset_manager(owner_account);
 }
 
 signed_transaction wallet_api::create_witness(string owner_account,

@@ -1199,6 +1199,20 @@ class wallet_api
       signed_transaction create_committee_member(string owner_account,
                                          string url, 
                                          bool broadcast = false);
+   
+      /** Creates a asset_manager object owned by the given account.
+       *
+       * An account can have at most one asset_manager object.
+       *
+       * @param owner_account the name or id of the account which is creating the asset_manager
+       * @param url a URL to include in the asset_manager record in the blockchain.  Clients may
+       *            display this when showing a list of asset_managers.  May be blank.
+       * @param broadcast true to broadcast the transaction on the network
+       * @returns the signed transaction registering a asset_manager
+       */
+      signed_transaction create_asset_manager(string owner_account,
+                                              string url,
+                                              bool broadcast = false);
 
       /** Lists all witnesses registered in the blockchain.
        * This returns a list of all account names that own witnesses, and the associated witness id,
@@ -1229,6 +1243,21 @@ class wallet_api
        * @returns a list of committee_members mapping committee_member names to committee_member ids
        */
       map<string, committee_member_id_type>       list_committee_members(const string& lowerbound, uint32_t limit);
+   
+      /** Lists all asset_managers registered in the blockchain.
+       * This returns a list of all account names that own asset_managers, and the associated asset_manager id,
+       * sorted by name.  This lists asset_managers whether they are currently voted in or not.
+       *
+       * Use the \c lowerbound and limit parameters to page through the list.  To retrieve all asset_managers,
+       * start by setting \c lowerbound to the empty string \c "", and then each iteration, pass
+       * the last asset_manager name returned as the \c lowerbound for the next \c list_asset_managers() call.
+       *
+       * @param lowerbound the name of the first asset_manager to return.  If the named asset_manager does not exist,
+       *                   the list will start at the asset_manager that comes after \c lowerbound
+       * @param limit the maximum number of asset_managers to return (max: 1000)
+       * @returns a list of asset_managers mapping asset_manager names to asset_manager ids
+       */
+      map<string, asset_manager_id_type>       list_asset_managers(const string& lowerbound, uint32_t limit);
 
       /** Returns information about the given witness.
        * @param owner_account the name or id of the witness account owner, or the id of the witness
@@ -1241,6 +1270,12 @@ class wallet_api
        * @returns the information about the committee_member stored in the block chain
        */
       committee_member_object get_committee_member(string owner_account);
+   
+      /** Returns information about the given asset_manager.
+       * @param owner_account the name or id of the asset_manager account owner, or the id of the asset_manager
+       * @returns the information about the asset_manager stored in the block chain
+       */
+      asset_manager_object get_asset_manager(string owner_account);
 
       /** Creates a witness object owned by the given account.
        *
@@ -1637,10 +1672,13 @@ FC_API( graphene::wallet::wallet_api,
         (settle_asset)
         (whitelist_account)
         (create_committee_member)
+        (create_asset_manager)
         (get_witness)
         (get_committee_member)
+        (get_asset_manager)
         (list_witnesses)
         (list_committee_members)
+        (list_asset_managers)
         (create_witness)
         (update_witness)
         (create_worker)
