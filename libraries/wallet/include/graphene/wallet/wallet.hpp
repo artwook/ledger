@@ -1160,6 +1160,28 @@ class wallet_api
                                       string amount_to_settle,
                                       string symbol,
                                       bool broadcast = false);
+    
+      /** Forces a buyback of the given asset which must be issued by asset manager and support force_buyback flag.
+       *
+       * In order to use this operation, asset_to_buyback must have the force_buyback flag set
+       *
+       * When this operation is executed all balances are collected and destroyed, and equal amount of core
+       * asset will be return to the balance holder, the amount of asset given back is calculated according to a 
+       * public price provided by the asset manager.
+       *
+       * The result transaction should be signed by a supervisor acount such as jiu chain.(Not implemented yet)
+       *
+       * @note this operation is used only by the asset issuer which must be an asset manager
+       *
+       * @param symbol the name or id of the asset to buy back
+       * @param buyback_price the price at which to buyback
+       * @param broadcast true to broadcast the transaction on the network
+       * @returns the signed transaction settling the named asset
+       */
+      signed_transaction force_buyback_asset(string symbol,
+                                             price  buyback_price,
+                                             string fee_paying_account,
+                                             bool broadcast = false);
 
       /** Whitelist and blacklist accounts, primarily for transacting in whitelisted assets.
        *
@@ -1670,6 +1692,7 @@ FC_API( graphene::wallet::wallet_api,
         (reserve_asset)
         (global_settle_asset)
         (settle_asset)
+        (force_buyback_asset)
         (whitelist_account)
         (create_committee_member)
         (create_asset_manager)

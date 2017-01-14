@@ -1403,6 +1403,43 @@ public:
 
       return sign_transaction( tx, broadcast );
    } FC_CAPTURE_AND_RETHROW( (account_to_settle)(amount_to_settle)(symbol)(broadcast) ) }
+    
+    signed_transaction force_buyback_asset(string symbol,
+                                     price  buyback_price,
+                                     string fee_paying_account,
+                                     bool broadcast /* = false */)
+    { try {
+        optional<asset_object> asset_to_buyback = find_asset(symbol);
+        if ( !asset_to_buyback )
+            FC_THROW("No asset with that symbol exists!");
+        
+        if ( !asset_to_buyback->can_force_buyback() )
+        {
+            FC_THROW("This asset can not be force buyback!");
+        }
+        
+        auto paying_account_id = get_account_id(fee_paying_account);
+        
+        if ( asset_to_buyback->issuer != paying_account_id )
+        {
+            FC_THROW("The fee paying account must be the issuer of the asset.");
+        }
+        
+        if ( !_remote_db->get_asset_manager_by_account(paying_account_id) )
+            FC_THROW("Account ${fee_paying_account} is not an asset_manager", ("fee_paying_account", fee_paying_account));
+        
+        asset_manager_force_buyback_asset_operation buyback_op;
+        buyback_op.asset_id = asset_to_buyback->get_id();
+        buyback_op.asset_manager_account = get_account_id(fee_paying_account);
+        buyback_op.buyback_price = buyback_price;
+        
+        signed_transaction tx;
+        tx.operations.push_back( buyback_op );
+        set_operation_fees( tx, _remote_db->get_global_properties().parameters.current_fees);
+        tx.validate();
+        
+        return sign_transaction( tx, broadcast );
+    } FC_CAPTURE_AND_RETHROW( (symbol)(buyback_price)(fee_paying_account)(broadcast) ) }
 
    signed_transaction whitelist_account(string authorizing_account,
                                         string account_to_list,
@@ -1450,7 +1487,7 @@ public:
       asset_manager_create_op.url = url;
       // TODO: Should also be checked in evaluation
       if (_remote_db->get_asset_manager_by_account(asset_manager_create_op.asset_manager_account))
-         FC_THROW("Account ${owner_account} is already a asset_manager", ("owner_account", owner_account));
+         FC_THROW("Account ${owner_account} is already an asset_manager", ("owner_account", owner_account));
       
       signed_transaction tx;
       tx.operations.push_back( asset_manager_create_op );
@@ -3340,6 +3377,14 @@ signed_transaction wallet_api::settle_asset(string account_to_settle,
                                             bool broadcast /* = false */)
 {
    return my->settle_asset(account_to_settle, amount_to_settle, symbol, broadcast);
+}
+    
+signed_transaction wallet_api::force_buyback_asset(string symbol,
+                                                 price  buyback_price,
+                                                 string fee_paying_account,
+                                                 bool broadcast /* = false */)
+{
+   return my->force_buyback_asset(symbol, buyback_price, fee_paying_account, broadcast);
 }
 
 signed_transaction wallet_api::whitelist_account(string authorizing_account,
