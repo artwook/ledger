@@ -52,6 +52,8 @@ namespace graphene { namespace chain {
 
          void_result do_evaluate( const asset_manager_force_buyback_asset_operation& o );
          void_result do_apply( const asset_manager_force_buyback_asset_operation& o );
+       
+         asset _required_asset;
    };
 
 } } // graphene::chain
