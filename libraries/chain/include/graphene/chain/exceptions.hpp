@@ -159,6 +159,9 @@ namespace graphene { namespace chain {
 
    GRAPHENE_DECLARE_OP_BASE_EXCEPTIONS( blind_transfer );
    GRAPHENE_DECLARE_OP_EVALUATE_EXCEPTION( unknown_commitment, blind_transfer, 1, "Attempting to claim an unknown prior commitment" );
+    
+   GRAPHENE_DECLARE_OP_BASE_EXCEPTIONS( asset_manager_force_buyback_asset );
+   GRAPHENE_DECLARE_OP_EVALUATE_EXCEPTION( not_permitted, asset_manager_force_buyback_asset, 1, "not permitted" )
 
    /*
    FC_DECLARE_DERIVED_EXCEPTION( addition_overflow,                 graphene::chain::chain_exception, 30002, "addition overflow" )

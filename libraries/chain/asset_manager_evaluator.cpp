@@ -27,6 +27,7 @@
 #include <graphene/chain/account_object.hpp>
 #include <graphene/chain/protocol/fee_schedule.hpp>
 #include <graphene/chain/transaction_evaluation_state.hpp>
+#include <graphene/chain/market_object.hpp>
 
 #include <fc/smart_ref_impl.hpp>
 
@@ -68,13 +69,54 @@ void_result asset_manager_update_evaluator::do_apply( const asset_manager_update
 
 void_result asset_manager_force_buyback_asset_evaluator::do_evaluate(const asset_manager_force_buyback_asset_operation& o)
 { try {
-   // TODO:
+    const database& d = db();
+    
+    const asset_object&   asset_type      = o.asset_id(d);
+    GRAPHENE_ASSERT(
+                    asset_type.can_force_buyback(),
+                    asset_manager_force_buyback_asset_not_permitted,
+                    "force buyback not permitted for asset ${asset}",
+                    ("asset", o.asset_id)
+                    );
+    
+    FC_ASSERT( asset_type.issuer == o.asset_manager_account );
+    
+    const auto& idx = d.get_index_type<asset_manager_index>().indices().get<by_account>();
+    auto itr = idx.find(o.asset_manager_account);
+    // The asset issuer must be an asset manager.
+    FC_ASSERT( itr != idx.end() );
+    
+    // TODO:
    return void_result();
 } FC_CAPTURE_AND_RETHROW( (o) ) }
 
 void_result asset_manager_force_buyback_asset_evaluator::do_apply(const asset_manager_force_buyback_asset_operation& o)
 { try {
-   // TODO
+    database& d = db();
+    const auto& limit_order_idx = d.get_index_type<limit_order_index>().indices().get<by_id>();
+    
+    // TODO: it should be possible to simply check the NEXT/PREV iterator after new_order_object to
+    // determine whether or not this order has "changed the book" in a way that requires us to
+    // check orders. For now I just lookup the lower bound and check for equality... this is log(n) vs
+    // constant time check. Potential optimization.
+    
+    auto limit_itr = limit_order_idx.begin();
+    auto limit_end = limit_order_idx.end();
+    
+    bool finished = false;
+    while( !finished && limit_itr != limit_end )
+    {
+        auto old_limit_itr = limit_itr;
+        ++limit_itr;
+        
+        if( old_limit_itr->sell_price.base.asset_id == o.asset_id
+           || old_limit_itr->sell_price.quote.asset_id == o.asset_id )
+        {
+            d.cancel_order(*old_limit_itr);
+        }
+    }
+    
+    // TODO: Do we need to cancel force_settlement_object?
 
    return void_result();
 } FC_CAPTURE_AND_RETHROW( (o) ) }
