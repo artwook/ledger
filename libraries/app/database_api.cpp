@@ -143,6 +143,9 @@ class database_api_impl : public std::enable_shared_from_this<database_api_impl>
 
       // Blinded balances
       vector<blinded_balance_object> get_blinded_balances( const flat_set<commitment_type>& commitments )const;
+   
+      // Asset holders
+      vector<account_asset_balance> get_asset_holders( asset_id_type asset_id, unsigned limit )const;
 
    //private:
       template<typename T>
@@ -1818,6 +1821,44 @@ vector<blinded_balance_object> database_api_impl::get_blinded_balances( const fl
    }
    return result;
 }
+   
+//////////////////////////////////////////////////////////////////////
+//                                                                  //
+// Asset holders                                                    //
+//                                                                  //
+//////////////////////////////////////////////////////////////////////
+vector<account_asset_balance> database_api::get_asset_holders( asset_id_type asset_id, unsigned limit )const
+{
+   return my->get_asset_holders( asset_id, limit );
+}
+   
+vector<account_asset_balance> database_api_impl::get_asset_holders( asset_id_type asset_id, unsigned limit )const
+{
+   FC_ASSERT( limit <= 100 && limit > 0);
+   
+   const auto& bal_idx = _db.get_index_type< account_balance_index >().indices().get< by_asset_balance >();
+   auto range = bal_idx.equal_range( boost::make_tuple( asset_id ) );
+   
+   vector<account_asset_balance> result;
+   
+   for( const account_balance_object& bal : boost::make_iterator_range( range.first, range.second ) )
+   {
+      if( bal.balance.value == 0 ) continue;
+      
+      auto account = _db.find(bal.owner);
+      
+      account_asset_balance aab;
+      aab.name       = account->name;
+      aab.account_id = account->id;
+      aab.amount     = bal.balance.value;
+      
+      result.push_back(aab);
+      if(result.size() == limit) break;
+   }
+   
+   return result;
+}
+
 
 //////////////////////////////////////////////////////////////////////
 //                                                                  //
