@@ -107,6 +107,13 @@ struct market_trade
    double                     amount;
    double                     value;
 };
+   
+struct account_asset_balance
+{
+   string                     name;
+   account_id_type            account_id;
+   share_type                 amount;
+};
 
 /**
  * @brief The database_api class implements the RPC API for the chain database.
@@ -583,6 +590,11 @@ class database_api
        *  @return the set of blinded balance objects by commitment ID
        */
       vector<blinded_balance_object> get_blinded_balances( const flat_set<commitment_type>& commitments )const;
+   
+      /**
+       *  @return the list of accounts that holds a specific asset
+       */
+      vector<account_asset_balance> get_asset_holders( asset_id_type asset_id, unsigned limit )const;
 
    private:
       std::shared_ptr< database_api_impl > my;
@@ -595,6 +607,7 @@ FC_REFLECT( graphene::app::order_book, (base)(quote)(bids)(asks) );
 FC_REFLECT( graphene::app::market_ticker, (base)(quote)(latest)(lowest_ask)(highest_bid)(percent_change)(base_volume)(quote_volume) );
 FC_REFLECT( graphene::app::market_volume, (base)(quote)(base_volume)(quote_volume) );
 FC_REFLECT( graphene::app::market_trade, (date)(price)(amount)(value) );
+FC_REFLECT( graphene::app::account_asset_balance, (name)(account_id)(amount) );
 
 FC_API(graphene::app::database_api,
    // Objects
@@ -691,4 +704,7 @@ FC_API(graphene::app::database_api,
 
    // Blinded balances
    (get_blinded_balances)
+       
+   // Asset holder
+   (get_asset_holders)
 )

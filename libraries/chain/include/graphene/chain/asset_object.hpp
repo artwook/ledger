@@ -98,6 +98,8 @@ namespace graphene { namespace chain {
          bool can_override()const { return options.flags & override_authority; }
          bool allow_confidential()const { return !(options.flags & asset_issuer_permission_flags::disable_confidential); }
 
+         bool can_force_buyback()const { return options.flags & force_buyback; }
+
          /// Helper function to get an asset object with the given amount in this asset's type
          asset amount(share_type a)const { return asset(a, id); }
          /// Convert a string amount (i.e. "123.45") to an asset object with this asset's type
@@ -153,7 +155,7 @@ namespace graphene { namespace chain {
          { return db.get(dynamic_asset_data_id); }
 
          /**
-          *  The total amount of an asset that is reserved for future issuance. 
+          *  The total amount of an asset that is reserved for future issuance.
           */
          template<class DB>
          share_type reserved( const DB& db )const

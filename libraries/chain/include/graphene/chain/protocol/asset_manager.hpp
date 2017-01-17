@@ -79,8 +79,13 @@ namespace graphene { namespace chain {
 
       asset             fee;
       chain_parameters  new_parameters;
+      
+      asset_id_type     asset_id;
+      account_id_type   asset_manager_account;
+      // BASE/QUOTE: CORE/ASSET_SYMBOL
+      price             buyback_price;
 
-      account_id_type fee_payer()const { return account_id_type(); }
+      account_id_type fee_payer()const { return asset_manager_account; }
       void            validate()const;
    };
 
@@ -96,4 +101,4 @@ FC_REFLECT( graphene::chain::asset_manager_create_operation,
             (fee)(asset_manager_account)(url) )
 FC_REFLECT( graphene::chain::asset_manager_update_operation,
             (fee)(asset_manager)(asset_manager_account)(new_url) )
-FC_REFLECT( graphene::chain::asset_manager_force_buyback_asset_operation, (fee)(new_parameters) );
+FC_REFLECT( graphene::chain::asset_manager_force_buyback_asset_operation, (fee)(new_parameters)(asset_id)(asset_manager_account)(buyback_price) );
