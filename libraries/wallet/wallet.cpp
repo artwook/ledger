@@ -1495,7 +1495,7 @@ public:
       tx.validate();
       
       return sign_transaction( tx, broadcast );
-   } FC_CAPTURE_AND_RETHROW( (owner_account)(broadcast) ) }
+   } FC_CAPTURE_AND_RETHROW( (owner_account)(url)(broadcast) ) }
 
    witness_object get_witness(string owner_account)
    {
