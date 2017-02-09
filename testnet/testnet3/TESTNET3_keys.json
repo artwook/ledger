@@ -1,0 +1,483 @@
+{
+  "init": {
+    "validator0": {
+      "name": "validator0",
+      "owner_key": {
+        "wif_priv_key": "5KeAa8d6tQzmcXsgMEgRmA5T2irw1N5HSqnxsjtciLhBFw1nWjR",
+        "pub_key": "AWK6WCvLED9ZZY7RgUbZfK8D3LMjsWwDaaU87U51MLfiC9Z8DpEvD",
+        "address": "AWKJJLBN87rg9AhaHLhLocyfBVfDc3WpWB2D"
+      },
+      "active_key": {
+        "wif_priv_key": "5KMMUen93uxagXgMofa9xSawH9Ko26ZZ9inWTjULL4stWh4TbGB",
+        "pub_key": "AWK8H9oErA28AVgf75R7RhwGfDEh3Z1TRFqXTkGfBJ5Em6GDBvCPY",
+        "address": "AWKM1nKxrDKMKcFLNjRZeHrQpYZPWpySqbCP"
+      },
+      "signing_key": {
+        "wif_priv_key": "5KDhcxqn6DoZ4FvDGWaBS6wJx2jYwKPM1oy7BZLnXxga3groqdV",
+        "pub_key": "AWK52PYmS9aoKJAjzXuLXgk4DyZGGuYNQRq8zaWj4sRdnKhsReyBd",
+        "address": "AWK9CdUrBhELwyHAPJXwSYEMFLawmLbYze5R"
+      }
+    },
+    "validator1": {
+      "name": "validator1",
+      "owner_key": {
+        "wif_priv_key": "5KK19dsQKcFHwQ8XaWtwL2TMCeXNG4mD9duQL4iGKGj7CPMsPpk",
+        "pub_key": "AWK4utWzjEkzDYZk45ioiWCtwCgiDoZTBZHrjPnjejPyDJx2PEpzX",
+        "address": "AWK7DLKBNMfVVWd2M1sAsTLKRPJQKoAFsifm"
+      },
+      "active_key": {
+        "wif_priv_key": "5Jpqr2pkPKb6fSXtfEuGMcLDkYmNWTk4BLv2Sea63CDwG2bweJZ",
+        "pub_key": "AWK6AfyPBJs9GDydeWu4CNx3NUscCvdgUsABSWprm564AXxKHTwDr",
+        "address": "AWK9BrqpitXCCpNZQYHBLtPUsiGTAeorhkSD"
+      },
+      "signing_key": {
+        "wif_priv_key": "5J9pBWFZK626B8n9XfjVKWJimwAP82ohhdvx5UZf7hryycnVN3v",
+        "pub_key": "AWK5ZECi8uvNmRgL8bLuw3UnQ1VhaoMxnfRsJf5m9iJS5dXMgyNrz",
+        "address": "AWK9PXGJfn339Xy7Scq7NJwoD2dQQadtCUK7"
+      }
+    },
+    "validator2": {
+      "name": "validator2",
+      "owner_key": {
+        "wif_priv_key": "5HxipGMjeQrDvt6oL5LBbbvLR7rYksHP2oeJ5tbCoyoLmadn9CE",
+        "pub_key": "AWK5xD1d3JbjB5hY386N3YcPiXkT7vFR3AQDRmTqgG2LWa2eA8LhM",
+        "address": "AWKDkD4cL8ab52kXQE6sZUtUaarvxWe8fuY7"
+      },
+      "active_key": {
+        "wif_priv_key": "5JKiaE6MweMhSv1htSefjjgsYJg2vBP75tgachkdGVLRv7zdiH1",
+        "pub_key": "AWK6ntg5U3HciUbBCFqoHjy3haD1xHF1HgW3ngFEpWFFj4U26diaE",
+        "address": "AWKP1dT4QW7tugoyPqconxtkiKR1DEAoJzzo"
+      },
+      "signing_key": {
+        "wif_priv_key": "5Jhe9iqF1XXxsjphaxuApA3YAKnViBhroqoXukMrNt9GRsAr2cU",
+        "pub_key": "AWK5xckCim7RpKDVNLhTNHdn98ws98uQM7AEH8UEarsCPPXRo1eFG",
+        "address": "AWK9RPAAfbUTRd4Z4weeVxY6bwmFn76CDdDy"
+      }
+    },
+    "validator3": {
+      "name": "validator3",
+      "owner_key": {
+        "wif_priv_key": "5JXBFG799mGyRfepivb8RXziukg4eU8eLvrfRa4nQiam7Q962HG",
+        "pub_key": "AWK6RnDqeMD5wa6hu1ovE421XfiyvDRJKUBJDyLw1KBmSAaFX6qmD",
+        "address": "AWKHDhbDbfYFBmyF3JmNorUQdqGstVH7NMc9"
+      },
+      "active_key": {
+        "wif_priv_key": "5KUKEwg5LZbogkvd4Ddia53JCi9cqbbAhezy1vU4YdTiweWFvAx",
+        "pub_key": "AWK7PqRLx6Fu1uKqyjeHcDE2nXRmnn2GrzakrS8bCxHfm2eJctyzw",
+        "address": "AWK9doGTwGryJPCKT6m4tK3ymTU3wzgH3R9D"
+      },
+      "signing_key": {
+        "wif_priv_key": "5J1FXG5AZCumTTcDhHCMBcHz5xoaESQ2hYAzS3knW6JWADkVXdB",
+        "pub_key": "AWK8d15ykhFjxuSTBAbCWpRYN6hvcRwdMeQwwKWqcJXpMTxCi9vWD",
+        "address": "AWK3AbM2CbmPDqGP5hLd3cdeQpgGiumtdDbL"
+      }
+    },
+    "validator4": {
+      "name": "validator4",
+      "owner_key": {
+        "wif_priv_key": "5HxXfkDTtJtXmNCHgb78G2Nme5ymYXCzVyqsEv5RCgTt5s3cQFZ",
+        "pub_key": "AWK8BWtgXnc5abqEU9nzzWeSTasgdGqDAPf3ZAXpCTkoKJL8SJJuu",
+        "address": "AWK5KpRpDBHCgG4yF4RfW1Gv1tsZx41Nicqr"
+      },
+      "active_key": {
+        "wif_priv_key": "5Hz3sUNMcPrSbKhQaktAubJRxGULhQSjoVRMVyecuYWeNFc3bW4",
+        "pub_key": "AWK5bFSg8kxmcE9vSxc8xDU72V71dJqNpTATmuiGg8dc5KxavKAVW",
+        "address": "AWK4vcUhvC2opvs1kf1JgMSUY1z3eUcmYdnw"
+      },
+      "signing_key": {
+        "wif_priv_key": "5J7qCYTfGwV7YnX4AqBCoQWpSgchZLHYoQjsaHxx2YtVNcYtU78",
+        "pub_key": "AWK64Te2W7jKA65NtzYvVfEhtPo5cokg13SyeY7NnFjLR4vN73Dvh",
+        "address": "AWKNHZFdiYa5SeqSsNfQJKD8Ext4zcWigqSQ"
+      }
+    },
+    "validator5": {
+      "name": "validator5",
+      "owner_key": {
+        "wif_priv_key": "5Jn2T4m7rG4PXj3ofUhP1QEjpG44BxftCLAqX5Ez4gHPiRE68iK",
+        "pub_key": "AWK6DhzUALPEhrnq8GqFZY6yUgPbyX2kg5njK31xFdz37ndzTEywG",
+        "address": "AWKHnU5yVzC2kFtdRjbF7wbovcyrdAt3fRmC"
+      },
+      "active_key": {
+        "wif_priv_key": "5J1h2gg2JUsfAtuK8nGTxVmFS9gwPXoPiuzYTvXLFsCSxzAqYsc",
+        "pub_key": "AWK7grSoHx1eYKVeFzPFuTbkEPf6Sz1ziV4AVxBHfbgT8wvUUzRmv",
+        "address": "AWKM5hSNJ8uDVp1YSdspcUMnyuaVCUe6W14Z"
+      },
+      "signing_key": {
+        "wif_priv_key": "5KFaG6ZG1GtFDg78nNLEgQT12BukmjdCaxGgadUrZT1hr5a8s8w",
+        "pub_key": "AWK64eZiJVNZqYiVjGUtvzQwHmLq9c73VxA5xyDEDSHkwVW5cGM3Y",
+        "address": "AWK5K6F9PeF54CegdZuq9TujeeZqrZEgP9zc"
+      }
+    },
+    "validator6": {
+      "name": "validator6",
+      "owner_key": {
+        "wif_priv_key": "5JWfJLi4iRmnqbuZawdCsCEgfNTowJ35iKF2bH6YheHkzEn78kk",
+        "pub_key": "AWK5NR3xaYz18oMuMPyyjwMxXN4MqmLA2Nmtx2YtfYFRfgSeny5jd",
+        "address": "AWK7ZqALiv4YnTPNg3iop2SbP2hhrcrbnrr4"
+      },
+      "active_key": {
+        "wif_priv_key": "5JVgdZ7A7oefxzdUoCtEPoUa9zSysBwKgh2MuBcDfSTSEYXqT9m",
+        "pub_key": "AWK8hLbqmAhGMkDpcTwxshahrAsKpib6L3Qoq7DLiyGhr4aEHctfv",
+        "address": "AWK8vBy139exBgRYjvVpHjd6bFeDJnFEM13c"
+      },
+      "signing_key": {
+        "wif_priv_key": "5JTyJRzGpX168gsJiZhWoeyxcFxxmoJEUVkp63vpdqqJTHTSyEa",
+        "pub_key": "AWK5ZbcAfKDAhudJeGp6b9wGrE9SZdMAHdPgpptZ7G1Moj7QtDrX1",
+        "address": "AWK8g1uVzq934i9ZJ7trxCYpVvpsLpVbLZvN"
+      }
+    },
+    "validator7": {
+      "name": "validator7",
+      "owner_key": {
+        "wif_priv_key": "5K9xkYMAokborsnMohiZFUPCyZUfkwTr7Naks5CZBejkT2BRuay",
+        "pub_key": "AWK58HFshvrWSVLFheTE1pZiu2DktHK4cNjbxZkacA8AJcNZPRJod",
+        "address": "AWKNE8Zjci1SzrYoPiKtDSUEdyeVeJ9HRxcz"
+      },
+      "active_key": {
+        "wif_priv_key": "5KguH2AQ8Sx5jJGigBEGRbvj3C5iSGK326fLA2tyq9qafYCJx8V",
+        "pub_key": "AWK7EGM4Fzez2KpQuCa4eu4QdbgdBea3X9tW4iiEPqUdWbppXXBEj",
+        "address": "AWKMo5wGVtXQcVaLpL9VzsGDr8brwkmcPutW"
+      },
+      "signing_key": {
+        "wif_priv_key": "5JvnUe4fHYA5tbb2aL3qsBxL4yY6RFVww2wmb5XHTin2v5ner8h",
+        "pub_key": "AWK5PBMAnX8zBNnqtZrXmupnmAbc5gFAgLy9yBZLpx2eCpDdU7kwK",
+        "address": "AWKDQqWCF5oTgCRugsXuEAVTwn3H5pMDbvmY"
+      }
+    },
+    "validator8": {
+      "name": "validator8",
+      "owner_key": {
+        "wif_priv_key": "5JuWrPDckhd8GJ9WLNpuhpKeHuMBp7G5JGRZVSegTZUy8cHtfv4",
+        "pub_key": "AWK6GAQNZZUyFzBULygUidbMXvFbU4jfTAeZMG5zLLkjLPH1X5vto",
+        "address": "AWK31ptZ85AYUFEQv6UxyjAz7Uek7Mfki1SQ"
+      },
+      "active_key": {
+        "wif_priv_key": "5Jscadqz1Vcn7T7UgMdtvQyu2zeQt34aSSCxEqCXTQzB8KYitnt",
+        "pub_key": "AWK6hFfqbNbDWwdtX1ZHrkqEFTRBjA8fcRCBvb25Y9Tjb5wTxGGGx",
+        "address": "AWK2j8QrVsiS3gQ7TGgwypC4dsmKuhB8fjG2"
+      },
+      "signing_key": {
+        "wif_priv_key": "5J9GbLmVYfZQhocmvRZdoRnC1EJE2gNQt4gru3kp5GaUfEYJFJz",
+        "pub_key": "AWK5L6ChkHCiaG6AwfBsL3hDRbaLwh95VH6rrHzAjkAVEgWCAwnCk",
+        "address": "AWK5NSYSmXmwJ6DcNovfzE6Gn1hJQwSCgQk2"
+      }
+    },
+    "validator9": {
+      "name": "validator9",
+      "owner_key": {
+        "wif_priv_key": "5KdHJfBQUsibmJ4BanK3Me5Ay9rVyZpMVUhr8NqGwPvDnDzGEPv",
+        "pub_key": "AWK5DZs3BC85v91PZcf4gHcsaKwkzfzFeivgFCixJRktA9wsDoyUZ",
+        "address": "AWKPf8tQcuTuLTbLRGuka4JaEC2v2TeiJ22P"
+      },
+      "active_key": {
+        "wif_priv_key": "5J7rN8YLcCu5jQaygFojAB6stV6JChp3egimbvwnnndeJDvmNmP",
+        "pub_key": "AWK5KzMP8c1DZeS5Zex6vsvnna3F9QZhiSv3VtQGZ3gLYZVcBawJE",
+        "address": "AWKLcK7MmY3Prd42aYhNTRYdgWL9YFJCHLWF"
+      },
+      "signing_key": {
+        "wif_priv_key": "5Js3nFmz492Urgavyr5oRagGSvZNuxtvd9io1UFvqYMXymSbo9X",
+        "pub_key": "AWK7nPQiaPYxvTP3p1t5NtqbHpS1Ziskon8uqxLJiAue98o975kNF",
+        "address": "AWK5AkuVkg65Drpbk8FKbdkcchUKgNxsc38T"
+      }
+    },
+    "validator10": {
+      "name": "validator10",
+      "owner_key": {
+        "wif_priv_key": "5HpMLAh9BuujGRVBdCqct9SJNLi758AL1jdvkVEJv4TzdXZcZj3",
+        "pub_key": "AWK76DUXb6jBx356WzeVBcvSXE9H6p9w9GWCFmnzwXHcDTWwZxhKh",
+        "address": "AWK5DrkPFiR184Yd1AodbpbB6pP7oewTq8y6"
+      },
+      "active_key": {
+        "wif_priv_key": "5KMouFxAbQiPuwQ5NJzdqcZivtnNkEWGPw6okaBkPtYyABGWYhi",
+        "pub_key": "AWK6XgY2SqVXVL2ueKfCF4g7MLw6vkfMTN1ags7oXeJjSfd6kSAbu",
+        "address": "AWK99bPmqCWPhPm8r4bxqFSmeYb4edcwbKma"
+      },
+      "signing_key": {
+        "wif_priv_key": "5JuVgVhkmamM5o56kerBMbnbb2RHLgvxWjpTgk7YvLQzE6SPhZZ",
+        "pub_key": "AWK7axa69yXuavKPvkZqgAAWrByk8f2PZDjfziWhJdy9H5mLbac1w",
+        "address": "AWK6upv5XYaL6mzw9rG5bbYNUCaGqE8aqhaF"
+      }
+    }
+  },
+  "cm": {
+    "board-member0": {
+      "name": "board-member0",
+      "owner_key": {
+        "wif_priv_key": "5KE6J65sPVW4RjUe22vTaGyhfZxGehXJsNdVotoYyWpGZsUeKGd",
+        "pub_key": "AWK5K4zWboqJXAA8fDUTYGRQJjUjGEQ3XNckHcDsAtG9c3yjVGpzQ",
+        "address": "AWKQ7MraEXYKmrut8bEBgr59pNAkMqj9PVnZ"
+      },
+      "active_key": {
+        "wif_priv_key": "5KLjDecKfQP7fwkY4jZFRsg4dbpLykJcUKLgMYGRSNaCGtwYRct",
+        "pub_key": "AWK6btYV8ABdbAqA23X9TKb5jfexg7D6WQUoiE86CLGEo1RAUJrPf",
+        "address": "AWKE8Ppbpae793TWUSbmxrfHQh4E79G3KDrr"
+      },
+      "signing_key": {
+        "wif_priv_key": "5KcrQCp8HqJh24TMj9tiFBFchFWdLHifALQQvdGy8uriMLiQyst",
+        "pub_key": "AWK55aNZgAJLhW9ZogTrS2U6iXpxuiebaLfX63MMFuZWBJAkx1m1U",
+        "address": "AWK4xUxGV8JDyKKwBcpCrqaPzcpojABgmHAX"
+      }
+    },
+    "board-member1": {
+      "name": "board-member1",
+      "owner_key": {
+        "wif_priv_key": "5KLMjTWKd3wqvqgKNNSRiG7MjvSMqPDxbUDiYmhu6qmWH3kSdYU",
+        "pub_key": "AWK8J9NoMJCmq2Mh1vm228rE41WBQjZESRFG2LhPoRCiraUgfph3R",
+        "address": "AWKEae9K3qhk7hq4Mcd11sKnb4tKwxeobi7R"
+      },
+      "active_key": {
+        "wif_priv_key": "5JLyxYKWpPU3dst3fqkriKyXoGqR2of5DrFEFDBabwhWQPfrWbR",
+        "pub_key": "AWK7AbZVtw1f8tVDyAZHtnvaRSYBkf4vzM3p74oDyohEHkbYKTHay",
+        "address": "AWK7CAENeNY44kMhYKF9NTK9wt5tYPNir6gK"
+      },
+      "signing_key": {
+        "wif_priv_key": "5Js1Gsge1o4EkLdzVXVx2rzKNL4LjubLxV2brUkAZVhumHnJAzf",
+        "pub_key": "AWK6KqvBGujTw4VexjycrzPL4rxBQ7bNHQvB5afbgZ4vcX5qQFaQU",
+        "address": "AWK963puEeDrihReBRKa8K7TowmqozRiLGS6"
+      }
+    },
+    "board-member2": {
+      "name": "board-member2",
+      "owner_key": {
+        "wif_priv_key": "5Jrmcib7RzgKFGgyCDYhxvRewaTZiz9tGA4dfgHcL1ARvQMo5oi",
+        "pub_key": "AWK66DoBLQs4wDPFV8JwMNJrneGXH2Y1obfK8ok82RKKLScbxtP6W",
+        "address": "AWKBRXY7wzsVk2oG9Fs5ip41mPLL9PUUXBKp"
+      },
+      "active_key": {
+        "wif_priv_key": "5J2Jn7FYhX3NMQQnY8e38q7QxNsG4dPm4eV6dAWVcoDqysUVM3o",
+        "pub_key": "AWK7ECDQq3FBToYJdfetznntk8ZUbtfHCAykp1dB7zpsxUfFsP8jS",
+        "address": "AWK36oGgMr7HKEFpkXJpnTXHN7Nd6o3QyfaY"
+      },
+      "signing_key": {
+        "wif_priv_key": "5K6XzM5fqjyWVupsQCpRnhi8eeKjK6emCzL4z4Qv4jTYRnf3zDo",
+        "pub_key": "AWK59QaVpsuvuZp8KuiYFpBogDXfrpzEd51mb9VpNCfHQWn8yfEqg",
+        "address": "AWKPLBQAv34mez3FfrZ3Z4GrrHG4cHU7TnxJ"
+      }
+    },
+    "board-member3": {
+      "name": "board-member3",
+      "owner_key": {
+        "wif_priv_key": "5KAPrTZPZJ52wrgMUtGnwvk9yBtYWeJbQs6ctWaJgXfhmDgHR8Y",
+        "pub_key": "AWK5Y5voVTaBNjQUjwPo2ZQ8vvVSQpsJoQomVg3i113hxQWmoPpQ2",
+        "address": "AWK9ENKmr88671rKVsHz6BrowmQL62r9p4Sh"
+      },
+      "active_key": {
+        "wif_priv_key": "5J14qURkZrbQg3i6Hy6KJKy8jeythxLDGwuRVpoa4fxn45u7UFw",
+        "pub_key": "AWK8HyW5isV1dVuMizT8Hi6ZSK1Wt4aXaHk9z7Qt3qMGc1CNNsF85",
+        "address": "AWKLjAw3EHpLixkcdHTz2BfiC5g9Ts1K1E2S"
+      },
+      "signing_key": {
+        "wif_priv_key": "5JEBDEsJgW2bEDtTrWCkHCjcpYAdcEV6rmXyFCyyjQAxBNz445k",
+        "pub_key": "AWK6qbvCj36Z1vAdy1pW1XXq3bfwNQMFnPdAvt7NdsQEj8F5dQZZD",
+        "address": "AWKNERCZd9BnrvkUrJqeLFM9bR5hFUoCWjQa"
+      }
+    },
+    "board-member4": {
+      "name": "board-member4",
+      "owner_key": {
+        "wif_priv_key": "5K32Ju5GsmbfaXut38pfgm8xyWARzvuBo1sYEqNwe3FHNvr2gFk",
+        "pub_key": "AWK7q47p2npy85wX9ws3hyedJdCYJTMwshrDkQn95jADM4wMA8te6",
+        "address": "AWKGAmupXFDtvp1x4JnSTc1QFokpbnHidAQ2"
+      },
+      "active_key": {
+        "wif_priv_key": "5KkpcNKrhnw5qz8aHEbT8SwTrtAMFhgvwVX42Hi8hMe5wc1J3LF",
+        "pub_key": "AWK5uUbdPQFB1CwNW5YVhb9pVuxoiuqm386SDV3GxTPbPdixwxQ4g",
+        "address": "AWKNrfSTLRiBnpbYSKbzgBRLcgdy7EZDDTgd"
+      },
+      "signing_key": {
+        "wif_priv_key": "5JMykYJ6GZYyWfGSnXhVGrhjcaot1bKvqMrqgZqbi8ZytVA8LVS",
+        "pub_key": "AWK6m6ep9QAD8QHaHpkKMjJLiyXZJ8L8mpSfPxD5YY4uH8n6L8LNW",
+        "address": "AWKHRHp4NmSe7LXJKSJRW7gVQRnFVWxinMp"
+      }
+    },
+    "board-member5": {
+      "name": "board-member5",
+      "owner_key": {
+        "wif_priv_key": "5J4gRZae6xfG5vfJKcRCEb7WKfifQ2BGABczkgR6rQiv38QjqP3",
+        "pub_key": "AWK7G1hracRZFJEjpMwxQ8dNZhqWw6D6JiKHRUQ1grb1RP97XABg5",
+        "address": "AWK7ABQUQtgtRqBTpnNaprHnLTTBpEN9o3jX"
+      },
+      "active_key": {
+        "wif_priv_key": "5JK9gYS3DyY8kHHK9MK7oVUvozRn4v5q9PT9Jbsn31iYYnArpwP",
+        "pub_key": "AWK8bBHYFwz36MbKnQDWwm6py3LijL4u9Bp4Jfn3baTaxx6FDu9PT",
+        "address": "AWKLT8swWTPUEYxNk3EHM2XeVSTa1Qcxzqnt"
+      },
+      "signing_key": {
+        "wif_priv_key": "5KVD2RVCtWSFrRGBuDThwui5cRJJkrVzPYWmCKkVuDupPkYBJ27",
+        "pub_key": "AWK5u8DDrXaQQF3zx55z2f7im1pshmY3LxUFYScgddXDBwfrrKEkn",
+        "address": "AWKAdHBcDZaeiBnNWXEbMdj1zJ8TU27kJ8dc"
+      }
+    },
+    "board-member6": {
+      "name": "board-member6",
+      "owner_key": {
+        "wif_priv_key": "5HvV2EcNxNSFvx4DogiuLbsaFSyb8jeLnQSM2gX2CVioEa9ByLb",
+        "pub_key": "AWK4th6x2qqncuarAWugTqTcGrCtG7SUGAbPgAttLmni9ZfDzTjJZ",
+        "address": "AWK2gfy7nPyVb3AhUB78BMe3HhnFdKRoEhoV"
+      },
+      "active_key": {
+        "wif_priv_key": "5KWwwBeSzrj5P9U4e6u3tCGo8hpYovZ3Ck1KFuyp2aSX34hqzGC",
+        "pub_key": "AWK6WHC8D1NY1hyvqhV7ErTNdEwH1GyhCmZearwj9n9jaHUXYmx3P",
+        "address": "AWKMHZs4xN67JaudmBLDkTtJ4QJ2c721cB4E"
+      },
+      "signing_key": {
+        "wif_priv_key": "5JKeCP97C8WcTt1pAoms133QJ6UpZKwxcuSgtRjh6X3CTQ6b5bd",
+        "pub_key": "AWK5uAb97iCo3vetUnWMEMi8LsMMykxmATjAMx7FxmPBrC4hNSRNX",
+        "address": "AWKEXcNs4PVeD7cHRj8oLPzA1GKnStgovMbz"
+      }
+    },
+    "board-member7": {
+      "name": "board-member7",
+      "owner_key": {
+        "wif_priv_key": "5JAEku42Zo7i9un9ryumpG48Ec2Ed19CeshM87SdMnV9GWzzXQH",
+        "pub_key": "AWK7HKERuvvyWLj5ukRxK5xiqhTZ6QJU5V7V1KPczvJj8zQboY2B6",
+        "address": "AWKDrFRtFTEz4iqCFh2VMvbxp4ucS47zQ36Q"
+      },
+      "active_key": {
+        "wif_priv_key": "5HwaabTZDgdZEEMdiF3p4ZpmbfQiQwDANTnHnnPzu4qVXehuYNh",
+        "pub_key": "AWK5kfJAXHeAhqafCmPgSByAPMqEYe1mFj9S7rGX6mjzkZyZB8FUG",
+        "address": "AWKAAyaE1RG4FghMZK9t7DBu9ztHeRvRMn9Z"
+      },
+      "signing_key": {
+        "wif_priv_key": "5JLz2CMkA3vrLjwmNmLpt9ttxvTharnQbuagmBn1LvavuKbyovD",
+        "pub_key": "AWK6q3tStcCqEu5cuko5Ych7cnc5gQsAz6DcFthGbz7cwiDWcskFX",
+        "address": "AWKA5er8hVN8Lg6A2uU1a99dQXVmvgB7dmv2"
+      }
+    },
+    "board-member8": {
+      "name": "board-member8",
+      "owner_key": {
+        "wif_priv_key": "5Jiq1A4AQitFNp3Sjp3gj3BFNqB3BjndBX7m6v8raBYdBYRkgyk",
+        "pub_key": "AWK6aAEYRiL8zrMLMxCudGUQNFRoEGT6JPdRnob3m2hvgvnvX4vF5",
+        "address": "AWKFhY7TDbaymGhUQnVzyqVWnjMZWPvaRP8c"
+      },
+      "active_key": {
+        "wif_priv_key": "5JzMYSEG3C8o3mGVAbucHVeHpRJDkabhMjdeXgemSqBgiBSvuxh",
+        "pub_key": "AWK6X3MonDuaGQYq92QNgaVt97YZwXmyU2DPMrUTbvWDKoWCmL6pg",
+        "address": "AWK8MtpKU2P7MVJ3fddqRekLb4TA6CsDGhc2"
+      },
+      "signing_key": {
+        "wif_priv_key": "5JGMXmydAmBRrx4NxvJ1D2KzVfwKBcDPM9539whyZd47Mu2nLUr",
+        "pub_key": "AWK6Xyk3YrjLawomPKeWFpb2y9rWyNQVM8r12uMTysZQUHNvcS1pN",
+        "address": "AWKLck1yuM8DNfyDP3po6HBCgdBkFyyaGsfB"
+      }
+    }
+  },
+  "sfactor": {
+    "name": "custodian",
+    "owner_key": {
+      "wif_priv_key": "5JWQnoWZeuePfGzxMZACDc3HwKB4o3N44496NS9RG7RZWMGsTUf",
+      "pub_key": "AWK5NQBbiYzzJNrndh6nSjkxY421qifay1zYuBQeWy1Dkj63odYL5",
+      "address": "AWK45VrBSuUCdWSARmFD5jAEWad8zesGZGk3"
+    },
+    "active_key": {
+      "wif_priv_key": "5KDkPgxAApbNdZYfY6jGXBGfvv9umcMcyxJ8NBpQdCSBK76wxaE",
+      "pub_key": "AWK68ye8w87mgmQLbuwL9MK6C6ABSM7VF28sZfwqAt4Z6AaSQy3yG",
+      "address": "AWK4BDRbAnUTwSeDtsN34JuHNVHk7zytQxm4"
+    }
+  },
+  "fedbank_sfactor": {
+    "name": "treasury.custodian",
+    "owner_key": {
+      "wif_priv_key": "5J2fL4PdCEhPyoXcAyLDBkRPxG4eEdKtR9q892kAePqMWXU9pW7",
+      "pub_key": "AWK5yKUXJjtk3upiHA5hhhszrrJ79YYomgzopyEpwKkEkMTfhMDyJ",
+      "address": "AWKDGQXetn9moc4K22CupEE2qeGspqc369py"
+    },
+    "active_key": {
+      "wif_priv_key": "5K5Y2HiFGm8jBRiADMnqDc84UYxBrjCeTkfedk4kKNFoa6gxLvf",
+      "pub_key": "AWK4wSNpvP73T3Kjfs1cgnkKjwumLB86CuXkxLB74VkjvtHdgVPb6",
+      "address": "AWK9MLqyr5DL5ffQKRLGSAYaMYi4NCrunwBc"
+    }
+  },
+  "fedbank": {
+    "name": "treasury",
+    "owner_key": {
+      "wif_priv_key": "5JVeAvzaj7pnWbitbjNY1VWsiEsRDRagoy73Je292f9am8Uj9kw",
+      "pub_key": "AWK4uxPZE39AESAoukEzd1hgQzWVDTta1NPpz1sRphXJdeV5NGPnN",
+      "address": "AWKFxr8Z7D68hUDBW5GxpmF3jryeUkWQ8SGu"
+    },
+    "active_key": {
+      "wif_priv_key": "5KcRPQomZ6CwHD6QLkAwPf7UmtYdfyXRrmkPVFDqd9tBdB5MwQA",
+      "pub_key": "AWK86M737Pzmk4Tn3oTVxXFHUX7y6TKhNkDRpn1aFwPkqLBQMe13i",
+      "address": "AWK8tkaMYUCshRLJFr7eunXaJ5WpXxaJvYae"
+    }
+  },
+  "bob_sfactor_keys": {
+    "name": "bob.custodian",
+    "owner_key": {
+      "wif_priv_key": "5JfevUAUgcVfZ9QrskNSieW8ziCf8E1fenmuqQt3wRbjaC8ewRy",
+      "pub_key": "AWK68ZjHkcmp5i4ajQ1bf9cfcwar2JaS7JXLDJ1QKFujZ7kjCg1H5",
+      "address": "AWKDZhwbaV36PWdPE9mmBCpKJEk3iQsQJpSN"
+    },
+    "active_key": {
+      "wif_priv_key": "5KFq6oFEozTMdSWCwABpmvj63hpXXXikWrsz1xa3m9rcLWvvkWW",
+      "pub_key": "AWK7A5GFY26cNTE9kk66X8oK9frEfytahmTFFguBUEZRMB8UFbpnG",
+      "address": "AWKG1AbSxkJc8pVe3oCXRFFWbBrvBxv9R5H7"
+    }
+  },
+  "bob_keys": {
+    "name": "bob",
+    "owner_key": {
+      "wif_priv_key": "5JHZ734BJP2tHydk5jDXTtWG5CdDBoVi9LfXBd6eW6T25zCcR4g",
+      "pub_key": "AWK7vqoeZfM34xJs3dzfbx7puDGFyZou7MbmrybEtcu4NatDALzL9",
+      "address": "AWKbyoeyZbCx5yG3Z4r4EmQ1mjbnyKvRtcK"
+    },
+    "active_key": {
+      "wif_priv_key": "5Jey6FyJx3JiEB8x4aL8tyApbECt7fdpmPMEEMCzXnQRk4TL6G3",
+      "pub_key": "AWK57gE74cMBpxTANjRFg5WMY26qn86cvg9DFMxA6yAksdSYKbMTB",
+      "address": "AWKK7yCD9eavPQ7EKBx9FthLRxqLyzqmwLgC"
+    }
+  },
+  "alice_sfactor_keys": {
+    "name": "alice.custodian",
+    "owner_key": {
+      "wif_priv_key": "5J2tpGQsJW8ttWSJWVC2kzV638RXcvK6Cxz6bdxA5rLo6eGLF8p",
+      "pub_key": "AWK5nENhfh58pGdSYskUsGbHncmYQWhzh8fkjEkPtsweabDkH8VBU",
+      "address": "AWKCpuesYKgCSFWXnAuZgWEHj1pA1mXi6tp9"
+    },
+    "active_key": {
+      "wif_priv_key": "5JgEg3WXUauKFoP1WoKjCwtri8wPmhZrQ46rpgrKe8siT7gVR1t",
+      "pub_key": "AWK5jJMiYAGBA27eaQ3sGWGgHe8TDznuyRUzq2vRj1RLdzYA93KEH",
+      "address": "AWK5JGJvPnZ8ewZpQP7Ubu7kG9ZKJgpSVqyy"
+    }
+  },
+  "alice_keys": {
+    "name": "alice",
+    "owner_key": {
+      "wif_priv_key": "5JFg5xiNhjJHELw8PXQovGU6Dyu9i15YiemTXGA4pm1VbRA2opr",
+      "pub_key": "AWK5XgGs11LptKB86cGEmLhVT86gq2oBBBtvnfPTF1dY1W2wC6YLr",
+      "address": "AWKGyvmqBiFpUBMMym1GQaMKj4Svibj9HTh9"
+    },
+    "active_key": {
+      "wif_priv_key": "5HuMKgk2wTHfg9T6KjzmbJEmLjqXZMqn3z17r2W8i1wqjndcsxM",
+      "pub_key": "AWK7PUNAySAPiiZksoPybmfyeqfvAVG9SMN9vciA1FqtxShyL6JED",
+      "address": "AWKFkfRg1ZWqVW8VpPr9NKXAgjpPBSYvnGzZ"
+    }
+  },
+  "asset_manager_sfactor_keys": {
+    "name": "alee.custodian",
+    "owner_key": {
+      "wif_priv_key": "5JYMoo9FYUbasge2weCnMftSPZkmCzzxJLbd5mbCzfqmzfSD2hj",
+      "pub_key": "AWK7qJrnBG9oRzvV3vYTrrUbyybdJidPaR96bSyQ5GZcfeVtHVv3s",
+      "address": "AWK9QLwfz4x1bzMoF1n4YhfGG5NhArhvhMTz"
+    },
+    "active_key": {
+      "wif_priv_key": "5KRpTEZFG9ymhC3aE4CuVmgzWyvfWLRzcmHuSqz1Tnf4dAdLGCE",
+      "pub_key": "AWK8ZNWkdKzMp4ZmStiZ3yD34nxQC3d79boaMCzUoGAnUUvPjX4qw",
+      "address": "AWK8HaP2tPu7cEcSzCdU5sryppWJVBckYe9z"
+    }
+  },
+  "asset_manager_keys": {
+    "name": "alee",
+    "owner_key": {
+      "wif_priv_key": "5KChoXMKnnLvvGXb7STBpiXb2pMm8YDTXuWPCtS83ZNsChEN9EL",
+      "pub_key": "AWK6RsFnwxA4GKBXfRHCyQ8R4zmiXN7t6VayrAaQ5Apw6wRUzgJ8y",
+      "address": "AWKPyoQQyWQtwGmn8VwdLutanfshoWdAMjue"
+    },
+    "active_key": {
+      "wif_priv_key": "5JZaWkp37HGKCBiGvkfozv75LXN5tppkwuxB7AZZJX84wKwrNqi",
+      "pub_key": "AWK8P4JokSgreQh3H5f9nxqVNsnynkhGgNFj96HvpPR9Bm74Drm6K",
+      "address": "AWK7rCwSDzfzS12JHrd4FFs9WhkDYUJjPbgi"
+    }
+  }
+}
